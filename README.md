@@ -6,6 +6,9 @@ It is modeled on the Huang et al. [Pathogenic Germline Variants in 10,389 Adult
 Cancers](https://www.cell.com/cell/fulltext/S0092-8674(18)30363-5) See
 KuanEtAlGermline.md for relevant method details.
 
+![TinJasmine Workflow](notes/TinJasmine.v1.0.png?raw=true "TinJasmine Workflow")
+
+
 ## Past work
 
 [`germline_variant_snakemake`](https://github.com/ding-lab/germline_variant_snakemake)
@@ -34,6 +37,8 @@ Development work for TinJasmine (formerly GermlineCaller) have taken place here:
 The overall structure of this project is based on the
 [TinDaisy](https://github.com/ding-lab/TinDaisy.git) variant calling pipeline
 
+See [CromwellRunner](https://github.com/ding-lab/CromwellRunner.git) for information about managing pipeline runs using
+Cromwell on LSF environments
 
 ### Subprojects
 
@@ -41,7 +46,7 @@ The TinJasmine CWL workflow consists of number of smaller CWL tools which
 are generally developed in independent projects.  The complete list of such 
 projects is as follows:
 
-* [`GermlineCaller`](https://github.com/ding-lab/GermlineCaller.git)
+* [`TinJasmineWF`](https://github.com/ding-lab/TinJasmineWF.git)
 * [`GATK_GermlineCaller`](https://github.com/ding-lab/GATK_GermlineCaller.git)
 * [`Varscan_GermlineCaller`](https://github.com/ding-lab/Varscan_GermlineCaller.git)
 * [`Pindel_GermlineCaller`](https://github.com/ding-lab/Pindel_GermlineCaller.git)
