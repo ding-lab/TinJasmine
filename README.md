@@ -55,10 +55,14 @@ projects is as follows:
 * [`TinDaisy-VEP`](https://github.com/ding-lab/TinDaisy-VEP.git)
 * [`HotspotFilter`](https://github.com/ding-lab/HotspotFilter.git)
 * [`VCF2MAF`](https://github.com/ding-lab/vcf2maf-CWL.git)
+* [`VLD_Filter`](https://github.com/ding-lab/VLD_FilterVCF.git)
 
 
 ### Installation
 
+```
+git clone --recurse-submodules https://github.com/chaconinc/MainProject
+```
 
 
 ## Development

@@ -1,0 +1,27 @@
+[submodule "submodules/GATK_GermlineCaller"]
+	path = submodules/GATK_GermlineCaller
+	url = https://github.com/ding-lab/GATK_GermlineCaller.git
+[submodule "submodules/Varscan_GermlineCaller"]
+	path = submodules/Varscan_GermlineCaller
+	url = https://github.com/ding-lab/Varscan_GermlineCaller.git
+[submodule "submodules/Pindel_GermlineCaller"]
+	path = submodules/Pindel_GermlineCaller
+	url = https://github.com/ding-lab/Pindel_GermlineCaller.git
+[submodule "submodules/varscan_vcf_remap"]
+	path = submodules/varscan_vcf_remap
+	url = https://github.com/ding-lab/varscan_vcf_remap.git
+[submodule "submodules/MergeFilterVCF"]
+	path = submodules/MergeFilterVCF
+	url = https://github.com/ding-lab/MergeFilterVCF.git
+[submodule "submodules/TinDaisy-VEP"]
+	path = submodules/TinDaisy-VEP
+	url = https://github.com/ding-lab/TinDaisy-VEP.git
+[submodule "submodules/HotspotFilter"]
+	path = submodules/HotspotFilter
+	url = https://github.com/ding-lab/HotspotFilter.git
+[submodule "submodules/vcf2maf-CWL"]
+	path = submodules/vcf2maf-CWL
+	url = https://github.com/ding-lab/vcf2maf-CWL.git
+[submodule "submodules/VLD_FilterVCF"]
+	path = submodules/VLD_FilterVCF
+	url = https://github.com/ding-lab/VLD_FilterVCF.git

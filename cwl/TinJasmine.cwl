@@ -54,7 +54,7 @@ steps:
     out:
       - id: snp_vcf
       - id: indel_vcf
-    run: ../../GATK_GermlineCaller/cwl/GATK_GermlineCaller.cwl
+    run: ../submodules/GATK_GermlineCaller/cwl/GATK_GermlineCaller.cwl
     label: GATK_GermlineCaller
   - id: pindel_germline_caller
     in:
@@ -64,7 +64,7 @@ steps:
         source: bam
     out:
       - id: pindel_sifted
-    run: ../../Pindel_GermlineCaller/cwl/pindel_caller.Pindel_GermlineCaller.cwl
+    run: ../submodules/Pindel_GermlineCaller/cwl/pindel_caller.Pindel_GermlineCaller.cwl
     label: Pindel_GermlineCaller
   - id: pindel_filter
     in:
@@ -76,7 +76,7 @@ steps:
         source: pindel_config_template
     out:
       - id: indel_vcf
-    run: ../../Pindel_GermlineCaller/cwl/pindel_filter.Pindel_GermlineCaller.cwl
+    run: ../submodules/Pindel_GermlineCaller/cwl/pindel_filter.Pindel_GermlineCaller.cwl
     label: Pindel_Filter
   - id: _varscan__germline_caller
     in:
@@ -87,7 +87,7 @@ steps:
     out:
       - id: snp_vcf
       - id: indel_vcf
-    run: ../../Varscan_GermlineCaller/cwl/Varscan_GermlineCaller.cwl
+    run: ../submodules/Varscan_GermlineCaller/cwl/Varscan_GermlineCaller.cwl
     label: Varscan_GermlineCaller
   - id: varscan_vcf_remap_snp
     in:
@@ -97,7 +97,7 @@ steps:
         default: true
     out:
       - id: remapped_VCF
-    run: ../../varscan_vcf_remap/cwl/varscan_vcf_remap.cwl
+    run: ../submodules/varscan_vcf_remap/cwl/varscan_vcf_remap.cwl
     label: varscan_vcf_remap_snp
   - id: varscan_vcf_remap_indel
     in:
@@ -107,7 +107,7 @@ steps:
         default: true
     out:
       - id: remapped_VCF
-    run: ../../varscan_vcf_remap/cwl/varscan_vcf_remap.cwl
+    run: ../submodules/varscan_vcf_remap/cwl/varscan_vcf_remap.cwl
     label: varscan_vcf_remap_indel
   - id: vld_filter_gatk_snp
     in:
@@ -117,7 +117,7 @@ steps:
         source: gatk_snp_filter_config
     out:
       - id: output
-    run: ../../VLD_FilterVCF/cwl/VLD_FilterVCF.cwl
+    run: ../submodules/VLD_FilterVCF/cwl/VLD_FilterVCF.cwl
     label: VLD_Filter_GATK_SNP
   - id: vld_filter_gatk_indel
     in:
@@ -127,7 +127,7 @@ steps:
         source: gatk_indel_filter_config
     out:
       - id: output
-    run: ../../VLD_FilterVCF/cwl/VLD_FilterVCF.cwl
+    run: ../submodules/VLD_FilterVCF/cwl/VLD_FilterVCF.cwl
     label: VLD_Filter_GATK_indel
   - id: vld_filter_pindel
     in:
@@ -137,7 +137,7 @@ steps:
         source: pindel_filter_config
     out:
       - id: output
-    run: ../../VLD_FilterVCF/cwl/VLD_FilterVCF.cwl
+    run: ../submodules/VLD_FilterVCF/cwl/VLD_FilterVCF.cwl
     label: VLD_Filter_Pindel
   - id: vld_filter_varscan_snp
     in:
@@ -147,7 +147,7 @@ steps:
         source: varscan_snp_filter_config
     out:
       - id: output
-    run: ../../VLD_FilterVCF/cwl/VLD_FilterVCF.cwl
+    run: ../submodules/VLD_FilterVCF/cwl/VLD_FilterVCF.cwl
     label: VLD_Filter_varscan_snp
   - id: vld_filter_varscan_indel
     in:
@@ -157,7 +157,7 @@ steps:
         source: varscan_indel_filter_config
     out:
       - id: output
-    run: ../../VLD_FilterVCF/cwl/VLD_FilterVCF.cwl
+    run: ../submodules/VLD_FilterVCF/cwl/VLD_FilterVCF.cwl
     label: VLD_Filter_varscan_indel
   - id: merge_vcf
     in:
@@ -175,7 +175,7 @@ steps:
         source: vld_filter_varscan_snp/output
     out:
       - id: merged_vcf
-    run: ../../MergeFilterVCF/cwl/MergeVCF.cwl
+    run: ../submodules/MergeFilterVCF/cwl/MergeVCF.cwl
     label: Merge_VCF
   - id: filter_vcf
     in:
@@ -183,7 +183,7 @@ steps:
         source: merge_vcf/merged_vcf
     out:
       - id: merged_vcf
-    run: ../../MergeFilterVCF/cwl/FilterVCF.cwl
+    run: ../submodules/MergeFilterVCF/cwl/FilterVCF.cwl
     label: Merge_Filter_VCF
   - id: roi_filter
     in:
@@ -193,7 +193,7 @@ steps:
         source: ROI_BED
     out:
       - id: output
-    run: ../../HotspotFilter/cwl/hotspotfilter.cwl
+    run: ../submodules/HotspotFilter/cwl/hotspotfilter.cwl
     label: ROI_Filter
   - id: vep_annotate
     in:
@@ -209,7 +209,7 @@ steps:
         source: vep_cache_gz
     out:
       - id: output_dat
-    run: ../../TinDaisy-VEP/cwl/vep_annotate.cwl
+    run: ../submodules/TinDaisy-VEP/cwl/vep_annotate.cwl
     label: vep_annotate
   - id: canonical_filter
     in:
@@ -221,7 +221,7 @@ steps:
         default: true
     out:
       - id: output
-    run: ../../HotspotFilter/cwl/hotspotfilter.cwl
+    run: ../submodules/HotspotFilter/cwl/hotspotfilter.cwl
     label: CanonicalFilter
   - id: vcf2maf
     in:
@@ -235,6 +235,6 @@ steps:
         source: tumor_barcode
     out:
       - id: output
-    run: ../../vcf2maf-CWL/cwl/vcf2maf.cwl
+    run: ../submodules/vcf2maf-CWL/cwl/vcf2maf.cwl
     label: vcf2maf
 requirements: []
