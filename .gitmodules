@@ -13,9 +13,6 @@
 [submodule "submodules/MergeFilterVCF"]
 	path = submodules/MergeFilterVCF
 	url = https://github.com/ding-lab/MergeFilterVCF.git
-[submodule "submodules/TinDaisy-VEP"]
-	path = submodules/TinDaisy-VEP
-	url = https://github.com/ding-lab/TinDaisy-VEP.git
 [submodule "submodules/HotspotFilter"]
 	path = submodules/HotspotFilter
 	url = https://github.com/ding-lab/HotspotFilter.git
@@ -25,9 +22,9 @@
 [submodule "submodules/VLD_FilterVCF"]
 	path = submodules/VLD_FilterVCF
 	url = https://github.com/ding-lab/VLD_FilterVCF.git
-[submodule "submodules/VEP-annotate"]
-	path = submodules/VEP-annotate
-	url = https://github.com/ding-lab/VEP-annotate.git
 [submodule "submodules/VEP_annotate"]
 	path = submodules/VEP_annotate
 	url = https://github.com/ding-lab/VEP_annotate.git
+[submodule "submodules/WUDocker"]
+	path = submodules/WUDocker
+	url = https://github.com/ding-lab/WUDocker.git
