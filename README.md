@@ -52,6 +52,8 @@ projects is as follows:
 * [`Pindel_GermlineCaller`](https://github.com/ding-lab/Pindel_GermlineCaller.git)
 * [`varscan_vcf_remap`](https://github.com/ding-lab/varscan_vcf_remap.git)
 * [`MergeFilterVCF`](https://github.com/ding-lab/MergeFilterVCF.git)
+* [`TinDaisy-VEP`](https://github.com/ding-lab/TinDaisy-VEP.git)
+* [`HotSpot Filter`](https://github.com/ding-lab/HotspotFilter.git)
 
 ### Installation
 
