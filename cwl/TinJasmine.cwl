@@ -63,7 +63,7 @@ steps:
     out:
       - id: pindel_sifted
     run: ../../Pindel_GermlineCaller/cwl/pindel_caller.Pindel_GermlineCaller.cwl
-    label: pindel_caller.Pindel_GermlineCaller
+    label: Pindel_GermlineCaller
   - id: pindel_filter
     in:
       - id: pindel_sifted
@@ -75,7 +75,7 @@ steps:
     out:
       - id: indel_vcf
     run: ../../Pindel_GermlineCaller/cwl/pindel_filter.Pindel_GermlineCaller.cwl
-    label: pindel_filter.Pindel_GermlineCaller
+    label: Pindel_Filter
   - id: _varscan__germline_caller
     in:
       - id: reference
@@ -112,7 +112,7 @@ steps:
     out:
       - id: output
     run: ../../VLD_FilterVCF/cwl/VLD_FilterVCF.cwl
-    label: VLD_FilterVCF
+    label: VLD_Filter_GATK_SNP
   - id: vld_filter_gatk_indel
     in:
       - id: VCF
@@ -122,7 +122,7 @@ steps:
     out:
       - id: output
     run: ../../VLD_FilterVCF/cwl/VLD_FilterVCF.cwl
-    label: VLD_FilterVCF
+    label: VLD_Filter_GATK_indel
   - id: vld_filter_pindel
     in:
       - id: VCF
@@ -132,7 +132,7 @@ steps:
     out:
       - id: output
     run: ../../VLD_FilterVCF/cwl/VLD_FilterVCF.cwl
-    label: VLD_FilterVCF
+    label: VLD_Filter_Pindel
   - id: vld_filter_varscan_snp
     in:
       - id: VCF
@@ -142,7 +142,7 @@ steps:
     out:
       - id: output
     run: ../../VLD_FilterVCF/cwl/VLD_FilterVCF.cwl
-    label: VLD_FilterVCF
+    label: VLD_Filter_varscan_snp
   - id: vld_filter_varscan_indel
     in:
       - id: VCF
@@ -152,7 +152,7 @@ steps:
     out:
       - id: output
     run: ../../VLD_FilterVCF/cwl/VLD_FilterVCF.cwl
-    label: VLD_FilterVCF
+    label: VLD_Filter_varscan_indel
   - id: merge_vcf
     in:
       - id: reference
@@ -178,8 +178,8 @@ steps:
     out:
       - id: merged_vcf
     run: ../../MergeFilterVCF/cwl/FilterVCF.cwl
-    label: Filter_VCF
-  - id: hotspotfilter
+    label: Merge_Filter_VCF
+  - id: roi_filter
     in:
       - id: VCF_A
         source: filter_vcf/merged_vcf
@@ -188,11 +188,11 @@ steps:
     out:
       - id: output
     run: ../../HotspotFilter/cwl/hotspotfilter.cwl
-    label: HotspotFilter
+    label: ROI_Filter
   - id: vep_annotate
     in:
       - id: input_vcf
-        source: hotspotfilter/output
+        source: roi_filter/output
       - id: reference_fasta
         source: reference
       - id: assembly
@@ -216,7 +216,7 @@ steps:
     out:
       - id: output
     run: ../../HotspotFilter/cwl/hotspotfilter.cwl
-    label: HotspotFilter
+    label: CanonicalFilter
   - id: vcf2maf
     in:
       - id: ref-fasta
