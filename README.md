@@ -43,10 +43,8 @@ Cromwell on LSF environments
 ### Subprojects
 
 The TinJasmine CWL workflow consists of number of smaller CWL tools which
-are generally developed in independent projects.  The complete list of such 
-projects is as follows:
+are developed as independent projects:
 
-* [`TinJasmineWF`](https://github.com/ding-lab/TinJasmineWF.git)
 * [`GATK_GermlineCaller`](https://github.com/ding-lab/GATK_GermlineCaller.git)
 * [`Varscan_GermlineCaller`](https://github.com/ding-lab/Varscan_GermlineCaller.git)
 * [`Pindel_GermlineCaller`](https://github.com/ding-lab/Pindel_GermlineCaller.git)
@@ -60,9 +58,12 @@ projects is as follows:
 
 ### Installation
 
+All of the subprojects can be installed together with TinJasmine as,
 ```
 git clone --recurse-submodules https://github.com/ding-lab/TinJasmine.git
 ```
+
+Note that the principal dependencies are the CWL files associated with each subproject
 
 
 ## Development
