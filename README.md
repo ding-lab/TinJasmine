@@ -61,7 +61,7 @@ projects is as follows:
 ### Installation
 
 ```
-git clone --recurse-submodules https://github.com/chaconinc/MainProject
+git clone --recurse-submodules https://github.com/ding-lab/TinJasmine.git
 ```
 
 
