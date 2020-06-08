@@ -29,18 +29,20 @@ inputs:
     type: string?
   - id: Canonical_BED
     type: File
+  - id: tumor_barcode
+    type: string?
 outputs:
   - id: clean_VCF
     outputSource:
-      - canonical_filter/output
+      canonical_filter/output
     type: File
   - id: allCall_VCF
     outputSource:
-      - vep_annotate/output_dat
+      vep_annotate/output_dat
     type: File
   - id: clean_MAF
     outputSource:
-      - vcf2maf/output
+      vcf2maf/output
     type: File
 steps:
   - id: gatk_germline_caller
@@ -91,6 +93,8 @@ steps:
     in:
       - id: input
         source: _varscan__germline_caller/snp_vcf
+      - id: germline
+        default: true
     out:
       - id: remapped_VCF
     run: ../../varscan_vcf_remap/cwl/varscan_vcf_remap.cwl
@@ -99,6 +103,8 @@ steps:
     in:
       - id: input
         source: _varscan__germline_caller/indel_vcf
+      - id: germline
+        default: true
     out:
       - id: remapped_VCF
     run: ../../varscan_vcf_remap/cwl/varscan_vcf_remap.cwl
@@ -159,13 +165,13 @@ steps:
         source: reference
       - id: gatk_indel
         source: vld_filter_gatk_indel/output
-      - id: gatk_snp
+      - id: gatk_snv
         source: vld_filter_gatk_snp/output
       - id: pindel
         source: vld_filter_pindel/output
       - id: varscan_indel
         source: vld_filter_varscan_indel/output
-      - id: varscan_snp
+      - id: varscan_snv
         source: vld_filter_varscan_snp/output
     out:
       - id: merged_vcf
@@ -221,8 +227,12 @@ steps:
     in:
       - id: ref-fasta
         source: reference
+      - id: assembly
+        source: assembly
       - id: input-vcf
         source: canonical_filter/output
+      - id: tumor_barcode
+        source: tumor_barcode
     out:
       - id: output
     run: ../../vcf2maf-CWL/cwl/vcf2maf.cwl

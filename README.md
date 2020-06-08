@@ -54,6 +54,8 @@ projects is as follows:
 * [`MergeFilterVCF`](https://github.com/ding-lab/MergeFilterVCF.git)
 * [`TinDaisy-VEP`](https://github.com/ding-lab/TinDaisy-VEP.git)
 * [`HotspotFilter`](https://github.com/ding-lab/HotspotFilter.git)
+* [`VCF2MAF`](https://github.com/ding-lab/vcf2maf-CWL.git)
+
 
 ### Installation
 
