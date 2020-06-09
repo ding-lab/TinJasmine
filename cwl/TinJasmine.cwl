@@ -205,7 +205,7 @@ steps:
         source: vep_cache_gz
     out:
       - id: output_dat
-    run: ../submodules/TinDaisy-VEP/cwl/vep_annotate.cwl
+    run: ../submodules/VEP_annotate/cwl/vep_annotate.cwl
     label: vep_annotate
   - id: canonical_filter
     in:
