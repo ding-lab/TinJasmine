@@ -21,7 +21,7 @@ gatk_filter_config:  # type "File"
 
 pindel_config_template:  # type "File"
     class: File
-    path: /Users/mwyczalk/Projects/GermlineCaller/TinJasmine/submodules/Pindel_GermlineCaller/params/pindel_germline_filter_config.ini
+    path: /gscuser/mwyczalk/projects/GermlineCaller/TinJasmine/submodules/Pindel_GermlineCaller/params/pindel_germline_filter_config.ini
 
 reference:  # type "File"
     class: File

@@ -52,7 +52,7 @@ gatk_filter_config:  /gscuser/mwyczalk/projects/GermlineCaller/TinJasmine/submod
 
 This is distributed with Pindel Germline Caller params
 
-pindel_config_template:  /Users/mwyczalk/Projects/GermlineCaller/TinJasmine/submodules/Pindel_GermlineCaller/params/pindel_germline_filter_config.ini
+pindel_config_template:  /gscuser/mwyczalk/projects/GermlineCaller/TinJasmine/submodules/Pindel_GermlineCaller/params/pindel_germline_filter_config.ini
 
 Contents:
 ```
