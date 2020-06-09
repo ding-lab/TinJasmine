@@ -10,8 +10,9 @@ C3L-00081.WXS.N.hg38    C3L-00081   LSCC    WXS blood_normal    /gscmnt/gc2619/d
 ## TinDaisy Model Runs
 Former TinDaisy runs: /gscuser/mwyczalk/projects/CromwellRunner/TinDaisy/8_CCRCC.HotspotProximity16.20200521/logs/stashed/074db967-d080-4ae5-a1e8-8e3f42e97412/C3N-00315.yaml
 
-
 # Key configurations
+
+YAML file for this run: cwl_call/cwl-yaml/TinJasmine-C3L-00081.yaml
 
 ## BAM and Reference
 reference:  /gscmnt/gc7202/dinglab/common/Reference/A_Reference/GRCh38.d1.vd1/GRCh38.d1.vd1.fa
