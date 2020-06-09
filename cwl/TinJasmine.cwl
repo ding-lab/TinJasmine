@@ -7,17 +7,13 @@ inputs:
     type: File
   - id: reference
     type: File
-  - id: gatk_snp_filter_config
-    type: File
-  - id: gatk_indel_filter_config
+  - id: gatk_filter_config
     type: File
   - id: pindel_config_template
     type: File
   - id: pindel_filter_config
     type: File
-  - id: varscan_indel_filter_config
-    type: File
-  - id: varscan_snp_filter_config
+  - id: varscan_filter_config
     type: File
   - id: ROI_BED
     type: File
@@ -114,7 +110,7 @@ steps:
       - id: VCF
         source: gatk_germline_caller/snp_vcf
       - id: config
-        source: gatk_snp_filter_config
+        source: gatk_filter_config
     out:
       - id: output
     run: ../submodules/VLD_FilterVCF/cwl/VLD_FilterVCF.cwl
@@ -124,7 +120,7 @@ steps:
       - id: VCF
         source: gatk_germline_caller/indel_vcf
       - id: config
-        source: gatk_indel_filter_config
+        source: gatk_filter_config
     out:
       - id: output
     run: ../submodules/VLD_FilterVCF/cwl/VLD_FilterVCF.cwl
@@ -144,7 +140,7 @@ steps:
       - id: VCF
         source: varscan_vcf_remap_snp/remapped_VCF
       - id: config
-        source: varscan_snp_filter_config
+        source: varscan_filter_config
     out:
       - id: output
     run: ../submodules/VLD_FilterVCF/cwl/VLD_FilterVCF.cwl
@@ -154,7 +150,7 @@ steps:
       - id: VCF
         source: varscan_vcf_remap_indel/remapped_VCF
       - id: config
-        source: varscan_indel_filter_config
+        source: varscan_filter_config
     out:
       - id: output
     run: ../submodules/VLD_FilterVCF/cwl/VLD_FilterVCF.cwl
