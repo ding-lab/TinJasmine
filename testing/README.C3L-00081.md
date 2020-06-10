@@ -133,10 +133,8 @@ TODO: confirm that these are consistent with what is done for Germline and/or Ti
 ## Other
 
 canonical_BED:  gscuser/mwyczalk/projects/TinDaisy/TinDaisy/params/chrlist/GRCh38.callRegions.bed
-
-### chrlist
-
-All callers should have this, use same file
+centromere_bed: /gscuser/mwyczalk/projects/TinDaisy/TinDaisy/params/centromere/ucsc-centromere.GRCh38.bed
+chrlist: /gscuser/mwyczalk/projects/TinDaisy/TinDaisy/params/chrlist/GRCh38.d1.vd1.chrlist.txt
 
 ## Open questions
 

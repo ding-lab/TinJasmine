@@ -1,10 +1,19 @@
-tumor_barcode: TUMOR_BARCODE_TEST
+normal_barcode: NORMAL_BARCODE_TEST
+centromere:  # type "File" (optional)
+    class: File
+    path: /gscuser/mwyczalk/projects/TinDaisy/TinDaisy/params/centromere/ucsc-centromere.GRCh38.bed
+chrlist:  # type "File" (optional)
+    class: File
+    path: /gscuser/mwyczalk/projects/TinDaisy/TinDaisy/params/chrlist/GRCh38.d1.vd1.chrlist.txt
 Canonical_BED:  # type "File"
     class: File
     path: /gscuser/mwyczalk/projects/TinDaisy/TinDaisy/params/chrlist/GRCh38.callRegions.bed
-vep_cache_gz: /gscmnt/gc7202/dinglab/common/databases/VEP/v99/vep-cache.99_GRCh38.tar.gz
-vep_cache_version: 99
 assembly: GRCh38
+vep_cache_version: 99
+vep_cache_gz:  # type "File" (optional)
+    class: File
+    path: /gscmnt/gc7202/dinglab/common/databases/VEP/v99/vep-cache.99_GRCh38.tar.gz
+
 ROI_BED:  # type "File"
     class: File
     path: /gscmnt/gc2737/ding/fernanda/Germline_MMY/FamilialMM/ReferenceFiles/BEDfiles/Homo_sapiens.GRCh38.95.allCDS.2bpFlanks.biomart.bed
@@ -18,7 +27,6 @@ pindel_filter_config:  # type "File"
 gatk_filter_config:  # type "File"
     class: File
     path: /gscuser/mwyczalk/projects/GermlineCaller/TinJasmine/submodules/VLD_FilterVCF/params/VLD_FilterVCF-GATK.config.ini
-
 pindel_config_template:  # type "File"
     class: File
     path: /gscuser/mwyczalk/projects/GermlineCaller/TinJasmine/submodules/Pindel_GermlineCaller/params/pindel_germline_filter_config.ini

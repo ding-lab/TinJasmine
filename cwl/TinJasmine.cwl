@@ -55,7 +55,7 @@ steps:
       - id: chrlist
         source: chrlist
       - id: njobs
-        default: 4
+        default: 2
       - id: finalize
         default: true
       - id: compress_output
@@ -74,7 +74,7 @@ steps:
       - id: chrlist
         source: chrlist
       - id: njobs
-        default: 5
+        default: 12
       - id: finalize
         default: true
       - id: centromere
@@ -97,7 +97,7 @@ steps:
       - id: indel_vcf
     run: ../submodules/Pindel_GermlineCaller/cwl/pindel_filter.cwl
     label: Pindel_Filter
-  - id: _varscan__germline_caller
+  - id: varscan_germline_caller
     in:
       - id: reference
         source: reference
@@ -106,7 +106,7 @@ steps:
       - id: chrlist
         source: chrlist
       - id: njobs
-        default: 4
+        default: 2
       - id: compress_output
         default: true
       - id: finalize
@@ -119,7 +119,7 @@ steps:
   - id: varscan_vcf_remap_snp
     in:
       - id: input
-        source: _varscan__germline_caller/snp_vcf
+        source: varscan_germline_caller/snp_vcf
       - id: germline
         default: true
     out:
@@ -129,7 +129,7 @@ steps:
   - id: varscan_vcf_remap_indel
     in:
       - id: input
-        source: _varscan__germline_caller/indel_vcf
+        source: varscan_germline_caller/indel_vcf
       - id: germline
         default: true
     out:
