@@ -75,6 +75,8 @@ steps:
         source: chrlist
       - id: njobs
         default: 12
+      - id: confirm_success
+        default: true
       - id: finalize
         default: true
       - id: centromere
