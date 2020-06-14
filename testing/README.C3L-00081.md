@@ -140,13 +140,3 @@ chrlist: /gscuser/mwyczalk/projects/TinDaisy/TinDaisy/params/chrlist/GRCh38.d1.v
 
 normal_barcode: 
   - and its cousin tumor_barcode.  Need to confirm that vcf2maf works right in the case of germline providing just one normal sample
-
-reference:  # type "File"
-    class: File
-    path: a/file/path
-bam:  # type "File"
-    class: File
-    path: a/file/path
-
-
-
