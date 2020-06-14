@@ -1,4 +1,10 @@
-tumor_barcode: a_string  # type "string" (optional)
+normal_barcode: a_string  # type "string" (optional)
+centromere:  # type "File" (optional)
+    class: File
+    path: a/file/path
+chrlist:  # type "File" (optional)
+    class: File
+    path: a/file/path
 Canonical_BED:  # type "File"
     class: File
     path: a/file/path
@@ -10,10 +16,7 @@ vep_cache_gz:  # type "File" (optional)
 ROI_BED:  # type "File"
     class: File
     path: a/file/path
-varscan_snp_filter_config:  # type "File"
-    class: File
-    path: a/file/path
-varscan_indel_filter_config:  # type "File"
+varscan_filter_config:  # type "File"
     class: File
     path: a/file/path
 pindel_filter_config:  # type "File"
@@ -22,10 +25,7 @@ pindel_filter_config:  # type "File"
 pindel_config_template:  # type "File"
     class: File
     path: a/file/path
-gatk_indel_filter_config:  # type "File"
-    class: File
-    path: a/file/path
-gatk_snp_filter_config:  # type "File"
+gatk_filter_config:  # type "File"
     class: File
     path: a/file/path
 reference:  # type "File"

@@ -1,17 +1,78 @@
 # Past work
 
-## Germline development with C3L-00001
-Testing of germline CPTAC3 case C3L-00001 described here:
-/gscuser/mwyczalk/projects/GermlineCaller/README.C3L-00001.md
-
-Will test LSCC WXS normal case C3L-00081:
-C3L-00081.WXS.N.hg38    C3L-00081   LSCC    WXS blood_normal    /gscmnt/gc2619/dinglab_cptac3/GDC_import/data/ec948c00-910b-4c7b-82a7-4d209d377116/5e04faec-58e8-403f-942b-74e8c0053805_gdc_realn.bam   39312702311 BAM hg38    ec948c00-910b-4c7b-82a7-4d209d377116    MGI
-
 ## TinDaisy Model Runs
 Former TinDaisy runs: /gscuser/mwyczalk/projects/CromwellRunner/TinDaisy/8_CCRCC.HotspotProximity16.20200521/logs/stashed/074db967-d080-4ae5-a1e8-8e3f42e97412/C3N-00315.yaml
 
 
+## Germline development with C3L-00001
+Testing of germline CPTAC3 case C3L-00001 described here:
+/gscuser/mwyczalk/projects/GermlineCaller/README.C3L-00001.md
+
+### Pindel
+/gscuser/mwyczalk/projects/GermlineCaller/old-modules/Pindel_GermlineCaller/testing/cwl_call/yaml/C3L-00001.yaml
+```
+bam:
+  class: File
+  path: /gscmnt/gc2619/dinglab_cptac3/GDC_import/data/a0e38199-402a-4ae1-b00d-ec9c67dd51df/1cc7a20f-b05e-4661-95ec-399b3080a02b_gdc_realn.bam
+reference:
+  class: File
+  path: /gscmnt/gc2521/dinglab/mwyczalk/somatic-wrapper-data/image.data/A_Reference/GRCh38.d1.vd1/GRCh38.d1.vd1.fa
+chrlist:
+  class: File
+  path: /gscuser/mwyczalk/projects/TinDaisy/TinDaisy/params/chrlist/GRCh38.d1.vd1.chrlist.txt
+finalize: true
+```
+
+### GATK
+
+Run:
+/gscmnt/gc2541/cptac3_analysis/cromwell-workdir/cromwell-executions/GATK_GermlineCaller.cwl/b5cc02af-9203-4ed7-952c-0df8e3b0b99d
+
+testing/cwl_call/yaml/C3L-00001.yaml
+
+Development:
+https://github.com/ding-lab/GATK_GermlineCaller
+    C3L-00001 branch 
+
+YAML:
+```
+bam:
+  class: File
+  path: /gscmnt/gc2619/dinglab_cptac3/GDC_import/data/a0e38199-402a-4ae1-b00d-ec9c67dd51df/1cc7a20f-b05e-4661-95ec-399b3080a02b_gdc_realn.bam
+reference:
+  class: File
+  path: /gscmnt/gc2521/dinglab/mwyczalk/somatic-wrapper-data/image.data/A_Reference/GRCh38.d1.vd1/GRCh38.d1.vd1.fa
+chrlist:
+  class: File
+  path: /gscuser/mwyczalk/projects/TinDaisy/TinDaisy/params/chrlist/GRCh38.d1.vd1.chrlist.txt
+HC_ARGS: "--standard-min-confidence-threshold-for-calling 30.0"
+finalize: true
+```
+
+### Varscan
+/gscuser/mwyczalk/projects/GermlineCaller/old-modules/Varscan_GermlineCaller/testing/cwl_call/yaml/C3L-00001.yaml
+```
+bam:
+  class: File
+  path: /gscmnt/gc2619/dinglab_cptac3/GDC_import/data/a0e38199-402a-4ae1-b00d-ec9c67dd51df/1cc7a20f-b05e-4661-95ec-399b3080a02b_gdc_realn.bam
+reference:
+  class: File
+  path: /gscmnt/gc2521/dinglab/mwyczalk/somatic-wrapper-data/image.data/A_Reference/GRCh38.d1.vd1/GRCh38.d1.vd1.fa
+chrlist:
+  class: File
+  path: /gscuser/mwyczalk/projects/TinDaisy/TinDaisy/params/chrlist/GRCh38.d1.vd1.chrlist.txt
+finalize: true
+index_output: true
+```
+
+# New run
+Will test LSCC WXS normal case C3L-00081:
+C3L-00081.WXS.N.hg38    C3L-00081   LSCC    WXS blood_normal    /gscmnt/gc2619/dinglab_cptac3/GDC_import/data/ec948c00-910b-4c7b-82a7-4d209d377116/5e04faec-58e8-403f-942b-74e8c0053805_gdc_realn.bam   39312702311 BAM hg38    ec948c00-910b-4c7b-82a7-4d209d377116    MGI
+
+
 # Key configurations
+
+YAML file for this run: cwl_call/cwl-yaml/TinJasmine-C3L-00081.yaml
 
 ## BAM and Reference
 reference:  /gscmnt/gc7202/dinglab/common/Reference/A_Reference/GRCh38.d1.vd1/GRCh38.d1.vd1.fa
@@ -51,7 +112,7 @@ gatk_filter_config:  /gscuser/mwyczalk/projects/GermlineCaller/TinJasmine/submod
 
 This is distributed with Pindel Germline Caller params
 
-pindel_config_template:  /Users/mwyczalk/Projects/GermlineCaller/TinJasmine/submodules/Pindel_GermlineCaller/params/pindel_germline_filter_config.ini
+pindel_config_template:  /gscuser/mwyczalk/projects/GermlineCaller/TinJasmine/submodules/Pindel_GermlineCaller/params/pindel_germline_filter_config.ini
 
 Contents:
 ```
@@ -72,6 +133,8 @@ TODO: confirm that these are consistent with what is done for Germline and/or Ti
 ## Other
 
 canonical_BED:  gscuser/mwyczalk/projects/TinDaisy/TinDaisy/params/chrlist/GRCh38.callRegions.bed
+centromere_bed: /gscuser/mwyczalk/projects/TinDaisy/TinDaisy/params/centromere/ucsc-centromere.GRCh38.bed
+chrlist: /gscuser/mwyczalk/projects/TinDaisy/TinDaisy/params/chrlist/GRCh38.d1.vd1.chrlist.txt
 
 ## Open questions
 

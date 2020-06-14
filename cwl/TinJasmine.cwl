@@ -25,7 +25,12 @@ inputs:
     type: string?
   - id: Canonical_BED
     type: File
-  - id: tumor_barcode
+  - id: chrlist
+    type: File?
+    doc: List of chromsome regions common to all callers
+  - id: centromere
+    type: File?
+  - id: normal_barcode
     type: string?
 outputs:
   - id: clean_VCF
@@ -47,6 +52,14 @@ steps:
         source: reference
       - id: bam
         source: bam
+      - id: chrlist
+        source: chrlist
+      - id: njobs
+        default: 2
+      - id: finalize
+        default: true
+      - id: compress_output
+        default: true
     out:
       - id: snp_vcf
       - id: indel_vcf
@@ -58,9 +71,19 @@ steps:
         source: reference
       - id: bam
         source: bam
+      - id: chrlist
+        source: chrlist
+      - id: njobs
+        default: 12
+      - id: confirm_success
+        default: true
+      - id: finalize
+        default: true
+      - id: centromere
+        source: centromere
     out:
       - id: pindel_sifted
-    run: ../submodules/Pindel_GermlineCaller/cwl/pindel_caller.Pindel_GermlineCaller.cwl
+    run: ../submodules/Pindel_GermlineCaller/cwl/pindel_caller.cwl
     label: Pindel_GermlineCaller
   - id: pindel_filter
     in:
@@ -70,16 +93,26 @@ steps:
         source: reference
       - id: pindel_config_template
         source: pindel_config_template
+      - id: compress_output
+        default: true
     out:
       - id: indel_vcf
-    run: ../submodules/Pindel_GermlineCaller/cwl/pindel_filter.Pindel_GermlineCaller.cwl
+    run: ../submodules/Pindel_GermlineCaller/cwl/pindel_filter.cwl
     label: Pindel_Filter
-  - id: _varscan__germline_caller
+  - id: varscan_germline_caller
     in:
       - id: reference
         source: reference
       - id: bam
         source: bam
+      - id: chrlist
+        source: chrlist
+      - id: njobs
+        default: 2
+      - id: compress_output
+        default: true
+      - id: finalize
+        default: true
     out:
       - id: snp_vcf
       - id: indel_vcf
@@ -88,7 +121,7 @@ steps:
   - id: varscan_vcf_remap_snp
     in:
       - id: input
-        source: _varscan__germline_caller/snp_vcf
+        source: varscan_germline_caller/snp_vcf
       - id: germline
         default: true
     out:
@@ -98,7 +131,7 @@ steps:
   - id: varscan_vcf_remap_indel
     in:
       - id: input
-        source: _varscan__germline_caller/indel_vcf
+        source: varscan_germline_caller/indel_vcf
       - id: germline
         default: true
     out:
@@ -205,7 +238,7 @@ steps:
         source: vep_cache_gz
     out:
       - id: output_dat
-    run: ../submodules/TinDaisy-VEP/cwl/vep_annotate.cwl
+    run: ../submodules/VEP_annotate/cwl/vep_annotate.TinJasmine.cwl
     label: vep_annotate
   - id: canonical_filter
     in:
@@ -227,8 +260,8 @@ steps:
         source: assembly
       - id: input-vcf
         source: canonical_filter/output
-      - id: tumor_barcode
-        source: tumor_barcode
+      - id: normal_barcode
+        source: normal_barcode
     out:
       - id: output
     run: ../submodules/vcf2maf-CWL/cwl/vcf2maf.cwl

@@ -1,36 +1,39 @@
-tumor_barcode: a_string  # type "string" (optional)
+normal_barcode: NORMAL_BARCODE_TEST
+centromere:  # type "File" (optional)
+    class: File
+    path: /gscuser/mwyczalk/projects/TinDaisy/TinDaisy/params/centromere/ucsc-centromere.GRCh38.bed
+chrlist:  # type "File" (optional)
+    class: File
+    path: /gscuser/mwyczalk/projects/TinDaisy/TinDaisy/params/chrlist/GRCh38.d1.vd1.chrlist.txt
 Canonical_BED:  # type "File"
     class: File
-    path: a/file/path
-assembly: a_string  # type "string" (optional)
-vep_cache_version: a_string  # type "string" (optional)
+    path: /gscuser/mwyczalk/projects/TinDaisy/TinDaisy/params/chrlist/GRCh38.callRegions.bed
+assembly: GRCh38
+vep_cache_version: 99
 vep_cache_gz:  # type "File" (optional)
     class: File
-    path: a/file/path
+    path: /gscmnt/gc7202/dinglab/common/databases/VEP/v99/vep-cache.99_GRCh38.tar.gz
+
 ROI_BED:  # type "File"
     class: File
-    path: a/file/path
-varscan_snp_filter_config:  # type "File"
+    path: /gscmnt/gc2737/ding/fernanda/Germline_MMY/FamilialMM/ReferenceFiles/BEDfiles/Homo_sapiens.GRCh38.95.allCDS.2bpFlanks.biomart.bed
+
+varscan_filter_config:  # type "File"
     class: File
-    path: a/file/path
-varscan_indel_filter_config:  # type "File"
-    class: File
-    path: a/file/path
+    path: /gscuser/mwyczalk/projects/GermlineCaller/TinJasmine/submodules/VLD_FilterVCF/params/VLD_FilterVCF-varscan.config.ini
 pindel_filter_config:  # type "File"
     class: File
-    path: a/file/path
+    path: /gscuser/mwyczalk/projects/GermlineCaller/TinJasmine/submodules/VLD_FilterVCF/params/VLD_FilterVCF-pindel.config.ini  
+gatk_filter_config:  # type "File"
+    class: File
+    path: /gscuser/mwyczalk/projects/GermlineCaller/TinJasmine/submodules/VLD_FilterVCF/params/VLD_FilterVCF-GATK.config.ini
 pindel_config_template:  # type "File"
     class: File
-    path: a/file/path
-gatk_indel_filter_config:  # type "File"
-    class: File
-    path: a/file/path
-gatk_snp_filter_config:  # type "File"
-    class: File
-    path: a/file/path
+    path: /gscuser/mwyczalk/projects/GermlineCaller/TinJasmine/submodules/Pindel_GermlineCaller/params/pindel_germline_filter_config.ini
+
 reference:  # type "File"
     class: File
-    path: a/file/path
+    path: /gscmnt/gc7202/dinglab/common/Reference/A_Reference/GRCh38.d1.vd1/GRCh38.d1.vd1.fa
 bam:  # type "File"
     class: File
-    path: a/file/path
+    path: /gscmnt/gc2619/dinglab_cptac3/GDC_import/data/ec948c00-910b-4c7b-82a7-4d209d377116/5e04faec-58e8-403f-942b-74e8c0053805_gdc_realn.bam 
