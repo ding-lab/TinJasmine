@@ -1,0 +1,39 @@
+gatk-indel-vcf:  # type "File"
+    class: File
+    path: a/file/path
+gatk-snp-vcf:  # type "File"
+    class: File
+    path: a/file/path
+pindel-input:  # type "File"
+    class: File
+    path: a/file/path
+varscan-indel-input:  # type "File"
+    class: File
+    path: a/file/path
+varscan-snp-input:  # type "File"
+    class: File
+    path: a/file/path
+normal_barcode: a_string  # type "string" (optional)
+Canonical_BED:  # type "File"
+    class: File
+    path: a/file/path
+assembly: a_string  # type "string" (optional)
+vep_cache_version: a_string  # type "string" (optional)
+vep_cache_gz:  # type "File" (optional)
+    class: File
+    path: a/file/path
+ROI_BED:  # type "File"
+    class: File
+    path: a/file/path
+varscan_filter_config:  # type "File"
+    class: File
+    path: a/file/path
+pindel_filter_config:  # type "File"
+    class: File
+    path: a/file/path
+gatk_filter_config:  # type "File"
+    class: File
+    path: a/file/path
+reference:  # type "File"
+    class: File
+    path: a/file/path
