@@ -4,7 +4,8 @@ centromere:  # type "File" (optional)
     path: /gscuser/mwyczalk/projects/TinDaisy/TinDaisy/params/centromere/ucsc-centromere.GRCh38.bed
 chrlist:  # type "File" (optional)
     class: File
-    path: /gscuser/mwyczalk/projects/TinDaisy/TinDaisy/params/chrlist/GRCh38.d1.vd1.chrlist.txt
+    #path: /gscuser/mwyczalk/projects/TinDaisy/TinDaisy/params/chrlist/GRCh38.d1.vd1.chrlist.txt
+    path: /gscuser/mwyczalk/projects/GermlineCaller/TinJasmine/submodules/Pindel_GermlineCaller/testing/cwl_call-MGI/cwl-yaml/GRCh38.d1.vd1.chrlist-reordered.txt
 Canonical_BED:  # type "File"
     class: File
     path: /gscuser/mwyczalk/projects/TinDaisy/TinDaisy/params/chrlist/GRCh38.callRegions.bed
@@ -16,7 +17,7 @@ vep_cache_gz:  # type "File" (optional)
 
 ROI_BED:  # type "File"
     class: File
-    path: /gscmnt/gc2737/ding/fernanda/Germline_MMY/FamilialMM/ReferenceFiles/BEDfiles/Homo_sapiens.GRCh38.95.allCDS.2bpFlanks.biomart.bed
+    path: /gscmnt/gc2508/dinglab/fernanda/Germline_LUAD_LUSC/ReferenceFiles/Homo_sapiens.GRCh38.95.allCDS.2bpFlanks.biomart.withCHR.bed
 
 varscan_filter_config:  # type "File"
     class: File

@@ -173,3 +173,104 @@ TODO: modify VLD_FilterVCF/src/run_vaf_length_depth_filters.sh so that it runs `
 
 -> copying these to katmai:/home/mwyczalk_test/Projects/GermlineCaller/C3L-00081 for testing
 
+# Run 4
+
+Testing updated VLD filter and pindel caller which uses success files to make sure all jobs complete OK.
+Will retain NJOBS=6, but use a re-ordered chrlist file here:
+    /gscuser/mwyczalk/projects/GermlineCaller/TinJasmine/submodules/Pindel_GermlineCaller/testing/cwl_call-MGI/cwl-yaml/GRCh38.d1.vd1.chrlist-reordered.txt
+
+* hopefully this will reduce peak memory use
+
+Still getting out of memory errors for pindel, njobs = 6 and memory = 28G:
+
+/gscmnt/gc2541/cptac3_analysis/cromwell-workdir/cromwell-executions/TinJasmine.cwl/b6bc2338-dc9c-4303-b3dc-0ef397c8aea0/call-pindel_germline_caller/execution
+
+TODO: confirm that this will die because success file not present
+
+Yes, see /gscmnt/gc2541/cptac3_analysis/cromwell-workdir/cromwell-executions/TinJasmine.cwl/b6bc2338-dc9c-4303-b3dc-0ef397c8aea0/call-pindel_germline_caller/execution/stderr
+
+# Run 5
+
+Increase memory to 32G and keep njobs = 6
+-> Running in /gscmnt/gc2541/cptac3_analysis/cromwell-workdir/cromwell-executions/TinJasmine.cwl/739158e3-c905-4484-a2d8-dde3439c28d9
+
+-> seems like it succeeds!
+{
+  "outputs": {
+    "TinJasmine.cwl.clean_VCF": {
+      "format": null,
+      "location": "/gscmnt/gc2541/cptac3_analysis/cromwell-workdir/cromwell-executions/TinJasmine.cwl/739158e3-c905-4484-a2d8-dde3439c28d9/call-canonical_filter/execution/output/HotspotFiltered.vcf",
+      "size": 157776,
+    },
+    "TinJasmine.cwl.allCall_VCF": {
+      "format": null,
+      "location": "/gscmnt/gc2541/cptac3_analysis/cromwell-workdir/cromwell-executions/TinJasmine.cwl/739158e3-c905-4484-a2d8-dde3439c28d9/call-vep_annotate/execution/results/vep/output_vep.vcf",
+      "size": 157429,
+    },
+    "TinJasmine.cwl.clean_MAF": {
+      "format": null,
+      "location": "/gscmnt/gc2541/cptac3_analysis/cromwell-workdir/cromwell-executions/TinJasmine.cwl/739158e3-c905-4484-a2d8-dde3439c28d9/call-vcf2maf/execution/result.maf",
+      "size": 1620,
+    }
+  },
+  "id": "739158e3-c905-4484-a2d8-dde3439c28d9"
+}
+
+-> However, the VCFs and MAFs are empty
+
+Evaluate:
+* timing
+* format of VCF, check for any obvious errors
+
+## Timing
+
+### GATK
+[2020-06-15 21:38:48,71] [info] DispatchedConfigAsyncJobExecutionActor [739158e3gatk_germline_caller:NA:1]: Status change from - to Running
+[2020-06-15 23:43:27,94] [info] DispatchedConfigAsyncJobExecutionActor [739158e3gatk_germline_caller:NA:1]: Status change from Running to Done
+
+-> eyeballing - 3 hrs 5 min
+
+### Varscan
+[2020-06-15 21:40:18,70] [info] DispatchedConfigAsyncJobExecutionActor [739158e3varscan_germline_caller:NA:1]: Status change from - to Running
+[2020-06-15 22:53:54,89] [info] DispatchedConfigAsyncJobExecutionActor [739158e3varscan_germline_caller:NA:1]: Status change from Running to Done
+
+-> eyeball - 1 hr 13 min
+
+### Pindel
+[2020-06-15 21:40:18,70] [info] DispatchedConfigAsyncJobExecutionActor [739158e3pindel_germline_caller:NA:1]: Status change from - to Runnin
+[2020-06-16 05:39:20,44] [info] DispatchedConfigAsyncJobExecutionActor [739158e3pindel_germline_caller:NA:1]: Status change from Running to Done
+
+-> eyeball - 8 hrs
+-> this is unfortunate.  Will require additional development and tuning.  For now, acceptable
+
+## Why are VCFs empty?
+
+-> excluded at HotspotFilter / ROI filter
+  * input VCF ok
+stderr:
+```
+Running: mkdir -p output
+Processing VCF_A = /cromwell-executions/TinJasmine.cwl/739158e3-c905-4484-a2d8-dde3439c28d9/call-roi_filter/inputs/1204263469/filtered.vcf
+BED = /cromwell-executions/TinJasmine.cwl/739158e3-c905-4484-a2d8-dde3439c28d9/call-roi_filter/inputs/-1541611278/Homo_sapiens.GRCh38.95.allCDS.2bpFlanks.biomart.bed
+VCF_B not provided
+Running /opt/conda/bin/bedtools intersect -a /cromwell-executions/TinJasmine.cwl/739158e3-c905-4484-a2d8-dde3439c28d9/call-roi_filter/inputs/1204263469/filtered.vcf -b /cromwell-executions/TinJasmine.cwl/739158e3-c905-4484-a2d8-dde3439c28d9/call-roi_filter/inputs/-1541611278/Homo_sapiens.GRCh38.95.allCDS.2bpFlanks.biomart.bed >> output/HotspotFiltered.vcf
+***** WARNING: File /cromwell-executions/TinJasmine.cwl/739158e3-c905-4484-a2d8-dde3439c28d9/call-roi_filter/inputs/1204263469/filtered.vcf has inconsistent naming convention for record:
+chr1    13273   .   G   C   1298.6  PASS    AC=1;AF=0.5;AN=2;DP=235;set=gatk_snv-varscan_snv    GT:AD:DP:GQ:PL  0/1:167,68:235:99:1306,0,4237
+
+***** WARNING: File /cromwell-executions/TinJasmine.cwl/739158e3-c905-4484-a2d8-dde3439c28d9/call-roi_filter/inputs/1204263469/filtered.vcf has inconsistent naming convention for record:
+chr1    13273   .   G   C   1298.6  PASS    AC=1;AF=0.5;AN=2;DP=235;set=gatk_snv-varscan_snv    GT:AD:DP:GQ:PL  0/1:167,68:235:99:1306,0,4237
+
+Written to output/HotspotFiltered.vcf
+```
+
+### Testing HotspotFilter with actual data
+
+CROMWELL_ROOT = /gscmnt/gc2541/cptac3_analysis/cromwell-workdir/cromwell-executions
+Test with the above mapped as in real execution to run tests directly: 
+
+chr1    13273
+1   65563   65575   OR4F5
+
+update - use the following for ROI BED: /gscmnt/gc2508/dinglab/fernanda/Germline_LUAD_LUSC/ReferenceFiles/Homo_sapiens.GRCh38.95.allCDS.2bpFlanks.biomart.withCHR.bed
+-> this resolves the problem.  Update added to yaml file
+
