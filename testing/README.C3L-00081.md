@@ -87,7 +87,9 @@ from TinDaisy.  This may cause complications when this module is shared between 
 ## ROI BED
 
 From Fernanda:
-/gscmnt/gc2737/ding/fernanda/Germline_MMY/FamilialMM/ReferenceFiles/BEDfiles/Homo_sapiens.GRCh38.95.allCDS.2bpFlanks.biomart.bed
+/gscmnt/gc2508/dinglab/fernanda/Germline_LUAD_LUSC/ReferenceFiles/Homo_sapiens.GRCh38.95.allCDS.2bpFlanks.biomart.withCHR.bed
+
+(note, this version has chromosome names which match reference, i.e., `chr1` not `1`
 
 ## VEP v95
 
