@@ -111,3 +111,16 @@ Hotspot filter input: /gscmnt/gc2541/cptac3_analysis/cromwell-workdir/cromwell-e
 -> filtering did take place, but rejected variants were not retained
 -> HotspotFilter is not designed to add FILTER fields.  If make VCF_A = VCF_B, then can distinguish the calls by the HOTSPOT=A or =B in INFO field
 
+# Run 4
+
+updated Hostspot filter to retain all variants, and mark them in filter.  This is on by default.
+-> this is in HotspotFilter:20200617
+
+Also modified filter names for ROI and canonical filters so they are distinct, at the CWL workflow level.   This should all be confirmed in this run
+
+TinJasmine-postcall.cwl.clean_VCF
+    /gscmnt/gc2541/cptac3_analysis/cromwell-workdir/cromwell-executions/TinJasmine-postcall.cwl/ca143730-7a22-475a-aa4c-aed19d6e431e/call-canonical_filter/execution/output/HotspotFiltered.vcf
+TinJasmine-postcall.cwl.allCall_VCF
+    /gscmnt/gc2541/cptac3_analysis/cromwell-workdir/cromwell-executions/TinJasmine-postcall.cwl/ca143730-7a22-475a-aa4c-aed19d6e431e/call-vep_annotate/execution/results/vep/output_vep.vcf
+TinJasmine-postcall.cwl.clean_MAF
+    /gscmnt/gc2541/cptac3_analysis/cromwell-workdir/cromwell-executions/TinJasmine-postcall.cwl/ca143730-7a22-475a-aa4c-aed19d6e431e/call-vcf2maf/execution/result.maf
