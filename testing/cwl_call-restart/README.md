@@ -94,3 +94,20 @@ Using TinJasmine arguments, the following work and fail, only constant variables
 -> when works, confirm VEP format with Fernanda
 
 -> will use --buffer_size 500  --fork 4 going forward
+
+# Run 3
+
+With VEP cache updates implemented, starting again
+-> success!
+
+TinJasmine-postcall.cwl.clean_MAF: /gscmnt/gc2541/cptac3_analysis/cromwell-workdir/cromwell-executions/TinJasmine-postcall.cwl/0a5b12e4-e40f-4d51-abcf-8b6b167638ef/call-vcf2maf/execution/result.maf
+TinJasmine-postcall.cwl.clean_VCF: /gscmnt/gc2541/cptac3_analysis/cromwell-workdir/cromwell-executions/TinJasmine-postcall.cwl/0a5b12e4-e40f-4d51-abcf-8b6b167638ef/call-canonical_filter/execution/output/HotspotFiltered.vcf
+TinJasmine-postcall.cwl.allCall_VCF: /gscmnt/gc2541/cptac3_analysis/cromwell-workdir/cromwell-executions/TinJasmine-postcall.cwl/0a5b12e4-e40f-4d51-abcf-8b6b167638ef/call-vep_annotate/execution/results/vep/output_vep.vcf
+
+-> comparing clean and allCall VCF, it does not seem like hotspot filter did anything
+Hotspot filter output: /gscmnt/gc2541/cptac3_analysis/cromwell-workdir/cromwell-executions/TinJasmine-postcall.cwl/0a5b12e4-e40f-4d51-abcf-8b6b167638ef/call-roi_filter/execution/output/HotspotFiltered.vcf
+Hotspot filter input: /gscmnt/gc2541/cptac3_analysis/cromwell-workdir/cromwell-executions/TinJasmine-postcall.cwl/0a5b12e4-e40f-4d51-abcf-8b6b167638ef/call-roi_filter/inputs/731768474/filtered.vcf
+
+-> filtering did take place, but rejected variants were not retained
+-> HotspotFilter is not designed to add FILTER fields.  If make VCF_A = VCF_B, then can distinguish the calls by the HOTSPOT=A or =B in INFO field
+
