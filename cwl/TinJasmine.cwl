@@ -220,6 +220,10 @@ steps:
         source: filter_vcf/merged_vcf
       - id: BED
         source: ROI_BED
+      - id: retain_all
+        default: true
+      - id: filter_name
+        default: roi
     out:
       - id: output
     run: ../submodules/HotspotFilter/cwl/hotspotfilter.cwl
@@ -248,6 +252,8 @@ steps:
         source: Canonical_BED
       - id: keep_only_pass
         default: true
+      - id: filter_name
+        default: canonical
     out:
       - id: output
     run: ../submodules/HotspotFilter/cwl/hotspotfilter.cwl
