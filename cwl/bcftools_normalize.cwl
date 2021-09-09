@@ -4,12 +4,12 @@ $namespaces:
   sbg: 'https://www.sevenbridges.com/'
 id: bcftools_normalize
 baseCommand:
-  - bcftools norm
+  - /usr/bin/bcftools
 inputs:
   - id: vcf
     type: File
     inputBinding:
-      position: 0
+      position: 20
 outputs:
   - id: output
     type: File
@@ -18,17 +18,21 @@ outputs:
 label: bcftools_normalize
 arguments:
   - position: 0
+    prefix: norm
+  - position: 5
     prefix: '--multiallelics'
     valueFrom: '-'
-  - position: 0
+  - position: 6
     prefix: '--check-ref'
     valueFrom: w
-  - position: 0
+  - position: 7
     prefix: '-O'
     valueFrom: z
-  - position: 0
+  - position: 8
     prefix: '-o'
     valueFrom: output.normalized.vcf.gz
 requirements:
   - class: DockerRequirement
     dockerPull: 'biocontainers/bcftools:v1.9-1-deb_cv1'
+  - class: ResourceRequirement
+    ramMin: 8000
