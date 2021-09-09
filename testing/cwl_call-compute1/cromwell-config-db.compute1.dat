@@ -1,11 +1,13 @@
 # From https://confluence.ris.wustl.edu/pages/viewpage.action?spaceKey=CI&title=Cromwell
 
 # location to write error output logs from individual tools:
-#   /gscmnt/gc2541/cptac3_analysis/logs/cromwell-%J.err
+#   /data/Active/cromwell-data/logs/cromwell-%J.err
 # location for Cromwell's main working directory (temp, intermediate, and final files will all be stored here)
-#   /gscmnt/gc2541/cptac3_analysis/cromwell-executions
+#   /data/Active/cromwell-data/cromwell-executions
 # location to write Cromwell's workflow logs
-#   /gscmnt/gc2541/cptac3_analysis/cromwell-workflow-logs
+#   /data/Active/cromwell-data/cromwell-workflow-logs
+#
+#   /storage1/fs1/m.wyczalkowski/Active/cromwell-data/
 
 # Selecting same filesystem as where BAMs are stored allows for hard links and is much faster.  
 
@@ -27,8 +29,8 @@ backend {
         -J ${job_name} \
         -cwd ${cwd} \
         -o /dev/null \
-        -e /gscmnt/gc2541/cptac3_analysis/cromwell-workdir/logs/cromwell-%J.err \
-        -M ${memory_kb} \
+        -e /storage1/fs1/m.wyczalkowski/Active/cromwell-data/cromwell-workdir/logs/cromwell-%J.err \
+        -M ${memory_mb} \
         -n ${cpu} \
         -R "select[mem>${memory_mb}] rusage[mem=${memory_mb}]" \
         /bin/bash ${script}
@@ -39,10 +41,10 @@ backend {
         -J ${job_name} \
         -cwd ${cwd} \
         -o /dev/null \
-        -e /gscmnt/gc2541/cptac3_analysis/cromwell-workdir/logs/cromwell-%J.err \
+        -e /storage1/fs1/m.wyczalkowski/Active/cromwell-data/cromwell-workdir/logs/cromwell-%J.err \
         -a "docker(${docker})" \
-        -q research-hpc \
-        -M ${memory_kb} \
+        -q general \
+        -M ${memory_mb} \
         -n ${cpu} \
         -R "select[mem>${memory_mb}] rusage[mem=${memory_mb}]" \
         /bin/bash ${script}
@@ -51,13 +53,13 @@ backend {
         docker-kill = "bkill ${job_id}"
         check-alive = "bjobs -noheader -o stat ${job_id} | /bin/grep 'PEND\\|RUN'"
         job-id-regex = "Job <(\\d+)>.*"
-        root = "/gscmnt/gc2541/cptac3_analysis/cromwell-workdir/cromwell-executions"
+        root = "/storage1/fs1/m.wyczalkowski/Active/cromwell-data/cromwell-workdir/cromwell-executions"
       }
     }
   }
 }
 workflow-options {
-  workflow-log-dir = "/gscmnt/gc2541/cptac3_analysis/cromwell-workdir/cromwell-workflow-logs"
+  workflow-log-dir = "/storage1/fs1/m.wyczalkowski/Active/cromwell-data/cromwell-workdir/cromwell-workflow-logs"
 }
 database {
   profile = "slick.jdbc.MySQLProfile$"
