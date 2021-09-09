@@ -141,7 +141,7 @@ steps:
   - id: vld_filter_gatk_snp
     in:
       - id: VCF
-        source: gatk_germline_caller/snp_vcf
+        source: bcftools_normalize_gatk_snp/output
       - id: config
         source: gatk_filter_config
     out:
@@ -151,7 +151,7 @@ steps:
   - id: vld_filter_gatk_indel
     in:
       - id: VCF
-        source: gatk_germline_caller/indel_vcf
+        source: bcftools_normalize_gatk_indel/output
       - id: config
         source: gatk_filter_config
     out:
@@ -161,7 +161,7 @@ steps:
   - id: vld_filter_pindel
     in:
       - id: VCF
-        source: pindel_filter/indel_vcf
+        source: bcftools_normalize_pindel/output
       - id: config
         source: pindel_filter_config
     out:
@@ -171,7 +171,7 @@ steps:
   - id: vld_filter_varscan_snp
     in:
       - id: VCF
-        source: varscan_vcf_remap_snp/remapped_VCF
+        source: bcftools_normalize_varscan_snp/output
       - id: config
         source: varscan_filter_config
     out:
@@ -181,7 +181,7 @@ steps:
   - id: vld_filter_varscan_indel
     in:
       - id: VCF
-        source: varscan_vcf_remap_indel/remapped_VCF
+        source: bcftools_normalize_varscan_indel/output
       - id: config
         source: varscan_filter_config
     out:
@@ -272,4 +272,47 @@ steps:
       - id: output
     run: ../submodules/vcf2maf-CWL/cwl/vcf2maf.cwl
     label: vcf2maf
-requirements: []
+  - id: bcftools_normalize_pindel
+    in:
+      - id: vcf
+        source: pindel_filter/indel_vcf
+    out:
+      - id: output
+    run: ./bcftools_normalize.cwl
+    label: bcftools_normalize_pindel
+  - id: bcftools_normalize_varscan_indel
+    in:
+      - id: vcf
+        source: varscan_vcf_remap_indel/remapped_VCF
+    out:
+      - id: output
+    run: ./bcftools_normalize.cwl
+    label: bcftools_normalize_varscan_indel
+    scatter:
+      - vcf
+  - id: bcftools_normalize_varscan_snp
+    in:
+      - id: vcf
+        source: varscan_vcf_remap_snp/remapped_VCF
+    out:
+      - id: output
+    run: ./bcftools_normalize.cwl
+    label: bcftools_normalize_varscan_snp
+  - id: bcftools_normalize_gatk_snp
+    in:
+      - id: vcf
+        source: gatk_germline_caller/snp_vcf
+    out:
+      - id: output
+    run: ./bcftools_normalize.cwl
+    label: bcftools_normalize_gatk_snp
+  - id: bcftools_normalize_gatk_indel
+    in:
+      - id: vcf
+        source: gatk_germline_caller/indel_vcf
+    out:
+      - id: output
+    run: ./bcftools_normalize.cwl
+    label: bcftools_normalize_gatk_indel
+requirements:
+  - class: ScatterFeatureRequirement
