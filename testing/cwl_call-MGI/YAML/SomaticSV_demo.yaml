@@ -1,0 +1,11 @@
+generateEvidenceBam: true  
+reference:  # type "File"
+    class: File
+    path: /Users/mwyczalk/Projects/SomaticSV/testing/demo_data/Homo_sapiens_assembly19.COST16011_region.fa
+normal:  # type "File"
+    class: File
+    path: /Users/mwyczalk/Projects/SomaticSV/testing/demo_data/HCC1954.NORMAL.30x.compare.COST16011_region.bam
+tumor:  # type "File"
+    class: File
+    path: /Users/mwyczalk/Projects/SomaticSV/testing/demo_data/G15512.HCC1954.1.COST16011_region.bam
+
