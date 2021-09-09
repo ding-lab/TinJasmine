@@ -5,6 +5,7 @@ $namespaces:
 id: bcftools_normalize
 baseCommand:
   - /usr/bin/bcftools
+  - norm
 inputs:
   - id: vcf
     type: File
@@ -17,8 +18,6 @@ outputs:
       glob: output.normalized.vcf.gz
 label: bcftools_normalize
 arguments:
-  - position: 0
-    prefix: norm
   - position: 5
     prefix: '--multiallelics'
     valueFrom: '-'
@@ -32,7 +31,7 @@ arguments:
     prefix: '-o'
     valueFrom: output.normalized.vcf.gz
 requirements:
-  - class: DockerRequirement
-    dockerPull: 'biocontainers/bcftools:v1.9-1-deb_cv1'
   - class: ResourceRequirement
     ramMin: 8000
+  - class: DockerRequirement
+    dockerPull: 'biocontainers/bcftools:v1.9-1-deb_cv1'
