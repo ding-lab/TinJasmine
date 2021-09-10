@@ -6,7 +6,7 @@ It is modeled on the Huang et al. [Pathogenic Germline Variants in 10,389 Adult
 Cancers](https://www.cell.com/cell/fulltext/S0092-8674(18)30363-5) See
 KuanEtAlGermline.md for relevant method details.
 
-![TinJasmine Workflow](notes/TinJasmine.v1.1.png?raw=true "TinJasmine Workflow")
+![TinJasmine Workflow](notes/TinJasmine.v1.3.png?raw=true "TinJasmine Workflow")
 
 
 ## Past work
@@ -65,6 +65,10 @@ git clone --recurse-submodules https://github.com/ding-lab/TinJasmine.git
 
 Note that the principal dependencies are the CWL files associated with each subproject
 
+### Staging of files
+Copies are made of BAM files in the preliminary "staging" step.  This is done for performance reasons on
+Cromwell so that individual copies of the BAM are not generated for each caller.  Tool for staging of files
+is "borrowed" from [BICSEQ2.CWL](https://github.com/mwyczalkowski/BICSEQ2.CWL.git).
 
 ## Development
 

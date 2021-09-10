@@ -51,7 +51,7 @@ steps:
       - id: reference
         source: reference
       - id: bam
-        source: bam
+        source: stage_bam/output
       - id: chrlist
         source: chrlist
       - id: njobs
@@ -70,7 +70,7 @@ steps:
       - id: reference
         source: reference
       - id: bam
-        source: bam
+        source: stage_bam/output
       - id: chrlist
         source: chrlist
       - id: njobs
@@ -104,7 +104,7 @@ steps:
       - id: reference
         source: reference
       - id: bam
-        source: bam
+        source: stage_bam/output
       - id: chrlist
         source: chrlist
       - id: njobs
@@ -288,8 +288,6 @@ steps:
       - id: output
     run: ./bcftools_normalize.cwl
     label: bcftools_normalize_varscan_indel
-    scatter:
-      - vcf
   - id: bcftools_normalize_varscan_snp
     in:
       - id: vcf
@@ -314,5 +312,13 @@ steps:
       - id: output
     run: ./bcftools_normalize.cwl
     label: bcftools_normalize_gatk_indel
+  - id: stage_bam
+    in:
+      - id: BAM
+        source: bam
+    out:
+      - id: output
+    run: ./stage_bam.cwl
+    label: stage_bam
 requirements:
   - class: ScatterFeatureRequirement
