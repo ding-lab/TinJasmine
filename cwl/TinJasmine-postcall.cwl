@@ -2,9 +2,10 @@ class: Workflow
 cwlVersion: v1.0
 id: tin_jasmine
 doc: >-
-  TinJasmine workflow which begins with VLD Filters, bypassing calling and
-  preliminary filtering
-label: TinJasmine PostCall
+  TinJasmine workflow which bypasses calling and preliminary filtering (varscan 
+  remap and pindel filtering).  Workflow begins with bcftools normalize.  Based
+  on TinJasmine.cwl from commit fc861bf (9/10/21)
+label: TinJasmine-postcall
 inputs:
   - id: reference
     type: File
@@ -26,15 +27,15 @@ inputs:
     type: File
   - id: normal_barcode
     type: string?
-  - id: varscan-snp-input
+  - id: varscan_snp_vcf
     type: File
-  - id: varscan-indel-input
+  - id: varscan_indel_vcf
     type: File
-  - id: pindel-input
+  - id: pindel_vcf
     type: File
-  - id: gatk-snp-vcf
+  - id: gatk_snp_vcf
     type: File
-  - id: gatk-indel-vcf
+  - id: gatk_indel_vcf
     type: File
 outputs:
   - id: clean_VCF
@@ -53,7 +54,7 @@ steps:
   - id: vld_filter_gatk_snp
     in:
       - id: VCF
-        source: gatk-snp-vcf
+        source: bcftools_normalize_gatk_snp/output
       - id: config
         source: gatk_filter_config
     out:
@@ -63,7 +64,7 @@ steps:
   - id: vld_filter_gatk_indel
     in:
       - id: VCF
-        source: gatk-indel-vcf
+        source: bcftools_normalize_gatk_indel/output
       - id: config
         source: gatk_filter_config
     out:
@@ -73,7 +74,7 @@ steps:
   - id: vld_filter_pindel
     in:
       - id: VCF
-        source: pindel-input
+        source: bcftools_normalize_pindel/output
       - id: config
         source: pindel_filter_config
     out:
@@ -83,7 +84,7 @@ steps:
   - id: vld_filter_varscan_snp
     in:
       - id: VCF
-        source: varscan-snp-input
+        source: bcftools_normalize_varscan_snp/output
       - id: config
         source: varscan_filter_config
     out:
@@ -93,7 +94,7 @@ steps:
   - id: vld_filter_varscan_indel
     in:
       - id: VCF
-        source: varscan-indel-input
+        source: bcftools_normalize_varscan_indel/output
       - id: config
         source: varscan_filter_config
     out:
@@ -184,4 +185,45 @@ steps:
       - id: output
     run: ../submodules/vcf2maf-CWL/cwl/vcf2maf.cwl
     label: vcf2maf
-requirements: []
+  - id: bcftools_normalize_pindel
+    in:
+      - id: vcf
+        source: pindel_vcf
+    out:
+      - id: output
+    run: ./bcftools_normalize.cwl
+    label: bcftools_normalize_pindel
+  - id: bcftools_normalize_varscan_indel
+    in:
+      - id: vcf
+        source: varscan_indel_vcf
+    out:
+      - id: output
+    run: ./bcftools_normalize.cwl
+    label: bcftools_normalize_varscan_indel
+  - id: bcftools_normalize_varscan_snp
+    in:
+      - id: vcf
+        source: varscan_snp_vcf
+    out:
+      - id: output
+    run: ./bcftools_normalize.cwl
+    label: bcftools_normalize_varscan_snp
+  - id: bcftools_normalize_gatk_snp
+    in:
+      - id: vcf
+        source: gatk_snp_vcf
+    out:
+      - id: output
+    run: ./bcftools_normalize.cwl
+    label: bcftools_normalize_gatk_snp
+  - id: bcftools_normalize_gatk_indel
+    in:
+      - id: vcf
+        source: gatk_indel_vcf
+    out:
+      - id: output
+    run: ./bcftools_normalize.cwl
+    label: bcftools_normalize_gatk_indel
+requirements:
+  - class: ScatterFeatureRequirement
