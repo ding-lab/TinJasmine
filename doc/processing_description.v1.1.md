@@ -1,3 +1,8 @@
+# TinJasmine
+
+## Versions
+
+* v1.1 - Includes bcftools norm and BAM file staging
 
 # Background
 
@@ -29,19 +34,3 @@ GATK_GermlineCaller starts as a copy of https://github.com/ding-lab/varscan_vcf_
       * needs additional testing for -R option - retain filtered variants
 * MergeFilterVCF
     * In development
-
-## Side projects
-* WUDocker is a general purpose start_docker implementation.  Use that instead of start_docker for every project
-    https://github.com/ding-lab/WUDocker.git
-
-## shiso:/Users/mwyczalk/Projects/GermlineCaller
-
-Background research, early implementations
-
-## Katmai:/home/mwyczalk_test/Projects/GermlineCaller
-
-Leads development of scripts
-
-## MGI:/gscuser/mwyczalk/projects/GermlineCaller
-
-Development of VCFs based on C3L-00001
