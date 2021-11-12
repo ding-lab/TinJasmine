@@ -6,7 +6,7 @@ It is modeled on the Huang et al. [Pathogenic Germline Variants in 10,389 Adult
 Cancers](https://www.cell.com/cell/fulltext/S0092-8674(18)30363-5) See
 KuanEtAlGermline.md for relevant method details.
 
-![TinJasmine Workflow](notes/TinJasmine.v1.3.png?raw=true "TinJasmine Workflow")
+![TinJasmine Workflow](notes/TinJasmine.v1.4.png?raw=true "TinJasmine Workflow")
 
 
 ## Past work
