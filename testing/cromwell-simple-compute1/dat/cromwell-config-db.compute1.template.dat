@@ -7,6 +7,7 @@
 
 # location to write error output logs from individual tools:
 #   WORKFLOW_ROOT/logs/cromwell-%J.err
+#   -> it is important this directory be created if it does not exist
 # location for Cromwell's main working directory (temp, intermediate, and final files will all be stored here)
 #   WORKFLOW_ROOT/cromwell-executions
 # location to write Cromwell's workflow logs
