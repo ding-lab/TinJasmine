@@ -13,7 +13,7 @@ varscan-indel-input:  # type "File"
 varscan-snp-input:  # type "File"
     class: File
     path: a/file/path
-normal_barcode: a_string  # type "string" (optional)
+sample_barcode: a_string  # type "string" (optional)
 Canonical_BED:  # type "File"
     class: File
     path: a/file/path

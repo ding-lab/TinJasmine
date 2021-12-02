@@ -30,7 +30,7 @@ inputs:
     doc: List of chromsome regions common to all callers
   - id: centromere
     type: File?
-  - id: normal_barcode
+  - id: sample_barcode
     type: string?
 outputs:
   - id: clean_VCF
@@ -267,7 +267,7 @@ steps:
       - id: input-vcf
         source: canonical_filter/output
       - id: normal_barcode
-        source: normal_barcode
+        source: sample_barcode
     out:
       - id: output
     run: ../submodules/vcf2maf-CWL/cwl/vcf2maf.cwl

@@ -25,7 +25,7 @@ inputs:
     type: string?
   - id: Canonical_BED
     type: File
-  - id: normal_barcode
+  - id: sample_barcode
     type: string?
   - id: varscan_snp_vcf
     type: File
@@ -180,7 +180,7 @@ steps:
       - id: input-vcf
         source: canonical_filter/output
       - id: normal_barcode
-        source: normal_barcode
+        source: sample_barcode
     out:
       - id: output
     run: ../submodules/vcf2maf-CWL/cwl/vcf2maf.cwl
