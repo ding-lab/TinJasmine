@@ -11,7 +11,8 @@ typically be different for each user.  As an example, for user `m.wyczalkowski`,
     WORKFLOW_ROOT="/scratch1/fs1/dinglab/m.wyczalkowski/cromwell-data"
 
 Specifically,
-* Create `$WORKFLOW_ROOT` if it does not exist
+* Create directory `$WORKFLOW_ROOT` if it does not exist
+  * Also, create directory `$WORKFLOW_ROOT/logs`
 * `cp dat/cromwell-config-db.compute1.template.dat dat/cromwell-config-db.compute1.dat`
 * Edit `dat/cromwell-config-db.compute1.dat` to replace all instances of the string WORKFLOW_ROOT with the 
   appropriate value
