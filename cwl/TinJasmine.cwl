@@ -204,7 +204,7 @@ steps:
         source: vld_filter_varscan_snp/output
     out:
       - id: merged_vcf
-    run: ../submodules/MergeFilterVCF/cwl/MergeVCF.cwl
+    run: ../submodules/MergeFilterVCF/cwl/MergeVCF_TinJasmine.cwl
     label: Merge_VCF
   - id: filter_vcf
     in:
@@ -212,7 +212,7 @@ steps:
         source: merge_vcf/merged_vcf
     out:
       - id: merged_vcf
-    run: ../submodules/MergeFilterVCF/cwl/FilterVCF.cwl
+    run: ../submodules/MergeFilterVCF/cwl/FilterVCF_TinJasmine.cwl
     label: Merge_Filter_VCF
   - id: roi_filter
     in:
