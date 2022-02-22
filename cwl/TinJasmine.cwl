@@ -202,6 +202,8 @@ steps:
         source: vld_filter_varscan_indel/output
       - id: varscan_snv
         source: vld_filter_varscan_snp/output
+      - id: ref_remap
+        default: true
     out:
       - id: merged_vcf
     run: ../submodules/MergeFilterVCF/cwl/MergeVCF_TinJasmine.cwl
@@ -320,5 +322,4 @@ steps:
       - id: output
     run: ./stage_bam.cwl
     label: stage_bam
-requirements:
-  - class: ScatterFeatureRequirement
+requirements: []
