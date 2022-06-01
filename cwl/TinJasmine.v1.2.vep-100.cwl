@@ -1,6 +1,6 @@
 class: Workflow
 cwlVersion: v1.0
-id: tin_jasmine_v1.2
+id: tin_jasmine_v1_2
 doc: Updated version calling VLDA filter workflow
 label: TinJasmine 1.2 VEP 100
 inputs:
@@ -14,8 +14,6 @@ inputs:
     type: File
   - id: vep_cache_gz
     type: File?
-  - id: assembly
-    type: string?
   - id: Canonical_BED
     type: File
   - id: chrlist
@@ -28,15 +26,15 @@ inputs:
 outputs:
   - id: clean_VCF
     outputSource:
-      canonical_filter/output
+      - canonical_filter/output
     type: File
   - id: clean_MAF
     outputSource:
-      vcf2maf/output
+      - vcf2maf/output
     type: File
   - id: all_call_vcf
     outputSource:
-      vep_annotate_tin_jasmine_v100/output_dat
+      - vep_annotate_tin_jasmine_v100/output_dat
     type: File
 steps:
   - id: gatk_germline_caller
@@ -192,7 +190,7 @@ steps:
       - id: ref-fasta
         source: reference
       - id: assembly
-        source: assembly
+        default: 'GRCh38'
       - id: input-vcf
         source: canonical_filter/output
       - id: normal_barcode
