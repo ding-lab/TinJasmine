@@ -8,7 +8,6 @@ chrlist:  # type "File" (optional)
 Canonical_BED:  # type "File"
     class: File
     path: a/file/path
-assembly: a_string  # type "string" (optional)
 vep_cache_gz:  # type "File" (optional)
     class: File
     path: a/file/path
