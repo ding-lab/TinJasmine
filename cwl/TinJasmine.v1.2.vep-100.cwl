@@ -1,8 +1,8 @@
 class: Workflow
 cwlVersion: v1.0
-id: tin_jasmine
+id: tin_jasmine_v1.2
 doc: Updated version calling VLDA filter workflow
-label: TinJasmine
+label: TinJasmine 1.2 VEP 100
 inputs:
   - id: bam
     type: File
@@ -14,8 +14,6 @@ inputs:
     type: File
   - id: vep_cache_gz
     type: File?
-  - id: vep_cache_version
-    type: string?
   - id: assembly
     type: string?
   - id: Canonical_BED
@@ -32,13 +30,13 @@ outputs:
     outputSource:
       canonical_filter/output
     type: File
-  - id: allCall_VCF
-    outputSource:
-      vep_annotate/output_dat
-    type: File
   - id: clean_MAF
     outputSource:
       vcf2maf/output
+    type: File
+  - id: all_call_vcf
+    outputSource:
+      vep_annotate_tin_jasmine_v100/output_dat
     type: File
 steps:
   - id: gatk_germline_caller
@@ -175,26 +173,10 @@ steps:
       - id: output
     run: ../submodules/HotspotFilter/cwl/hotspotfilter.cwl
     label: ROI_Filter
-  - id: vep_annotate
-    in:
-      - id: input_vcf
-        source: roi_filter/output
-      - id: reference_fasta
-        source: reference
-      - id: assembly
-        source: assembly
-      - id: vep_cache_version
-        source: vep_cache_version
-      - id: vep_cache_gz
-        source: vep_cache_gz
-    out:
-      - id: output_dat
-    run: ../submodules/VEP_annotate/cwl/vep_annotate.TinJasmine.cwl
-    label: vep_annotate
   - id: canonical_filter
     in:
       - id: VCF_A
-        source: vep_annotate/output_dat
+        source: vep_annotate_tin_jasmine_v100/output_dat
       - id: BED
         source: Canonical_BED
       - id: keep_only_pass
@@ -271,10 +253,8 @@ steps:
     in:
       - id: VCF
         source: bcftools_normalize_gatk_snp/output
-      - id: vaf_caller
+      - id: variant_caller
         default: GATK
-      - id: allele_depth_caller
-        default: VCF
     out:
       - id: output
     run: ../submodules/VLD_FilterVCF/cwl/VLDA_Filter-germline.cwl
@@ -283,10 +263,8 @@ steps:
     in:
       - id: VCF
         source: bcftools_normalize_gatk_indel/output
-      - id: vaf_caller
+      - id: variant_caller
         default: GATK
-      - id: allele_depth_caller
-        default: VCF
     out:
       - id: output
     run: ../submodules/VLD_FilterVCF/cwl/VLDA_Filter-germline.cwl
@@ -295,10 +273,8 @@ steps:
     in:
       - id: VCF
         source: bcftools_normalize_varscan_snp/output
-      - id: vaf_caller
+      - id: variant_caller
         default: varscan
-      - id: allele_depth_caller
-        default: VCF
     out:
       - id: output
     run: ../submodules/VLD_FilterVCF/cwl/VLDA_Filter-germline.cwl
@@ -307,10 +283,8 @@ steps:
     in:
       - id: VCF
         source: bcftools_normalize_varscan_indel/output
-      - id: vaf_caller
+      - id: variant_caller
         default: varscan
-      - id: allele_depth_caller
-        default: VCF
     out:
       - id: output
     run: ../submodules/VLD_FilterVCF/cwl/VLDA_Filter-germline.cwl
@@ -319,13 +293,23 @@ steps:
     in:
       - id: VCF
         source: bcftools_normalize_pindel/output
-      - id: vaf_caller
+      - id: variant_caller
         default: pindel
-      - id: allele_depth_caller
-        default: VCF
     out:
       - id: output
     run: ../submodules/VLD_FilterVCF/cwl/VLDA_Filter-germline.cwl
     label: VLDA_pindel
+  - id: vep_annotate_tin_jasmine_v100
+    in:
+      - id: input_vcf
+        source: roi_filter/output
+      - id: reference_fasta
+        source: reference
+      - id: vep_cache_gz
+        source: vep_cache_gz
+    out:
+      - id: output_dat
+    run: ../submodules/VEP_annotate/cwl/vep_annotate.TinJasmine.v100.cwl
+    label: vep_annotate TinJasmine v100
 requirements:
   - class: SubworkflowFeatureRequirement
