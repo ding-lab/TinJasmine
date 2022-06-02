@@ -7,7 +7,7 @@
 
 # location to write error output logs from individual tools:
 #   WORKFLOW_ROOT/logs/cromwell-%J.err
-#   -> it is important this directory be created if it does not exist
+#   -> important, this directory needs to be created
 # location for Cromwell's main working directory (temp, intermediate, and final files will all be stored here)
 #   WORKFLOW_ROOT/cromwell-executions
 # location to write Cromwell's workflow logs
@@ -35,7 +35,7 @@ backend {
         -J ${job_name} \
         -cwd ${cwd} \
         -o /dev/null \
-        -e WORKFLOW_ROOT/cromwell-workdir/logs/cromwell-%J.err \
+        -e /scratch1/fs1/dinglab/m.wyczalkowski/cromwell-data/cromwell-workdir/logs/cromwell-%J.err \
         -M ${memory_mb} \
         -n ${cpu} \
         -R "select[mem>${memory_mb}] rusage[mem=${memory_mb}]" \
@@ -48,7 +48,7 @@ backend {
         -J ${job_name} \
         -cwd ${cwd} \
         -o /dev/null \
-        -e WORKFLOW_ROOT/cromwell-workdir/logs/cromwell-%J.err \
+        -e /scratch1/fs1/dinglab/m.wyczalkowski/cromwell-data/cromwell-workdir/logs/cromwell-%J.err \
         -a "docker(${docker})" \
         -q general \
         -M ${memory_mb} \
@@ -61,24 +61,31 @@ backend {
         docker-kill = "bkill ${job_id}"
         check-alive = "bjobs -noheader -o stat ${job_id} | /bin/grep 'PEND\\|RUN'"
         job-id-regex = "Job <(\\d+)>.*"
-        root = "WORKFLOW_ROOT/cromwell-workdir/cromwell-executions"
+        root = "/scratch1/fs1/dinglab/m.wyczalkowski/cromwell-data/cromwell-workdir/cromwell-executions"
         exit-code-timeout-seconds = 300  # Prevent running zombies? https://cromwell.readthedocs.io/en/stable/backends/HPC/#exit-code-timeout
       }
     }
   }
 }
 workflow-options {
-  workflow-log-dir = "WORKFLOW_ROOT/cromwell-workdir/cromwell-workflow-logs"
+  workflow-log-dir = "/scratch1/fs1/dinglab/m.wyczalkowski/cromwell-data/cromwell-workdir/cromwell-workflow-logs"
 }
 database {
-  profile = "slick.jdbc.MySQLProfile$"
+  profile = "slick.jdbc.HsqldbProfile$"
   db {
-    driver = "com.mysql.jdbc.Driver"
-    url = "jdbc:mysql://genome-cromwell.gsc.wustl.edu/cromwell?rewriteBatchedStatements=true&useSSL=true"
-    user = "cromwell"
-    password = "kc11-18da-L18K"
-    connectionTimeout = 180000
-    maxConnections = 10
-    numThreads = 10
-  }
+    driver = "org.hsqldb.jdbcDriver"
+# the last argument of file is base of filename, could be per-run
+    url = """
+    jdbc:hsqldb:file:/scratch1/fs1/dinglab/m.wyczalkowski/cromwell-data/cromwell-workdir/cromwell-db/TinJasmine;
+    shutdown=false;
+    hsqldb.default_table_type=cached;hsqldb.tx=mvcc;
+    hsqldb.result_max_memory_rows=10000;
+    hsqldb.large_data=true;
+    hsqldb.applog=1;
+    hsqldb.lob_compressed=true;
+    hsqldb.script_format=3
+    """
+    connectionTimeout = 120000
+    numThreads = 1
+   }
 }

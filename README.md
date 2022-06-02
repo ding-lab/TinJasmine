@@ -9,6 +9,14 @@ Cancers](https://www.cell.com/cell/fulltext/S0092-8674(18)30363-5)
 See [CromwellRunner](https://github.com/ding-lab/CromwellRunner.git) for
 information about managing pipeline runs using Cromwell on LSF environments
 
+## Versions
+
+* v1.2 
+  * VLD filter which has parameters passed via CWL 
+  * Updated VEP annotation with options for v99, v100, and v102
+v1.1 
+  * Initial version of TinJasmine compatible with CromwellRunner
+
 ### Subprojects
 
 The TinJasmine CWL workflow consists of number of smaller CWL tools which

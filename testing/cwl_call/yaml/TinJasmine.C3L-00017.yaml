@@ -1,0 +1,29 @@
+sample_barcode: CPT0000580002
+centromere:  # type "File" (optional)
+    class: File
+    path: ../../../params/centromere/ucsc-centromere.GRCh38.bed
+chrlist:  # type "File" (optional)
+    class: File
+    path: ../../../params/chrlist/GRCh38.d1.vd1.chrlist-reordered.txt
+Canonical_BED:  # type "File"
+    class: File
+    path: ../../../params/Canonical_BED/GRCh38.callRegions.bed
+
+# VEP Cache is used for VEP annotation and vcf_2_maf.
+# If not defined, online lookups will be used by VEP annotation. These are slower and do not include allele frequency info (MAX_AF) needed by AF filter.
+# For performance reasons, defining vep_cache_gz is suggested for production systems
+vep_cache_gz:  # type "File" (optional)
+    class: File
+    path: /storage1/fs1/m.wyczalkowski/Active/Primary/Resources/Databases/VEP/VEP_annotate/20220525/vep-cache.100_GRCh38.tar.gz
+ROI_BED:  
+    class: File
+    path: /storage1/fs1/dinglab/Active/Projects/fernanda/Projects/PECGS/BED_files_ROI/gencode34_vep100/Homo_sapiens.GRCh38.100.allCDS.1based.2bpFlanks.withCHR.bed
+pindel_config_template:  # type "File"
+    class: File
+    path: ../../../params/pindel_config_template/pindel_germline_filter_config.ini
+reference:  # type "File"
+    class: File
+    path: /storage1/fs1/dinglab/Active/Resources/References/GRCh38.d1.vd1/GRCh38.d1.vd1.fa
+bam:  # type "File"
+    class: File
+    path: /storage1/fs1/m.wyczalkowski/Active/Primary/CPTAC3.share/CPTAC3-GDC/GDC_import/data/f99797be-7884-4f95-9052-7637fe7de122/6aa9462a-bda4-4c7e-9049-dfd4e79fab18_gdc_realn.bam
