@@ -23,14 +23,3 @@ bash 1_run_cromwell_demo.sh
 ```
 
 This can also be run in tmux session or submitted via bsub
-
-## Results
-
-TinJasmine.v1.2.vep-100.cwl.clean_VCF
-/scratch1/fs1/dinglab/m.wyczalkowski/cromwell-data/cromwell-workdir/cromwell-executions/TinJasmine.v1.2.vep-100.cwl/d0259346-a53c-4392-bde7-412993548128/call-canonical_filter/execution/output/HotspotFiltered.vcf
-
-TinJasmine.v1.2.vep-100.cwl.all_call_vcf
-/scratch1/fs1/dinglab/m.wyczalkowski/cromwell-data/cromwell-workdir/cromwell-executions/TinJasmine.v1.2.vep-100.cwl/d0259346-a53c-4392-bde7-412993548128/call-vep_annotate_tin_jasmine_v100/execution/results/vep/output_vep.vcf
-
-TinJasmine.v1.2.vep-100.cwl.clean_MAF
-/scratch1/fs1/dinglab/m.wyczalkowski/cromwell-data/cromwell-workdir/cromwell-executions/TinJasmine.v1.2.vep-100.cwl/d0259346-a53c-4392-bde7-412993548128/call-vcf2maf/execution/result.maf
