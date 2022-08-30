@@ -144,7 +144,7 @@ steps:
       - id: pindel
         source: vlda_pindel/output
       - id: varscan_indel
-        source: vlda_varscan_indel/output
+        source: _v_l_d_a__filter_germline/output
       - id: varscan_snv
         source: vlda_varscan_snp/output
       - id: ref_remap
@@ -254,7 +254,7 @@ steps:
   - id: vlda_gatk_snp
     in:
       - id: VCF
-        source: bcftools_reheader_1/output
+        source: bcftools_reheader_gatk_snp/output
       - id: variant_caller
         default: GATK
     out:
@@ -264,7 +264,7 @@ steps:
   - id: vlda_gatk_indel
     in:
       - id: VCF
-        source: bcftools_reheader_4/output
+        source: bcftools_reheader_gatk_indel/output
       - id: variant_caller
         default: GATK
     out:
@@ -274,17 +274,17 @@ steps:
   - id: vlda_varscan_snp
     in:
       - id: VCF
-        source: bcftools_reheader/output
+        source: bcftools_reheader_varscan_snp/output
       - id: variant_caller
         default: varscan
     out:
       - id: output
     run: ../submodules/VLD_FilterVCF/cwl/VLDA_Filter-germline.cwl
     label: VLDA_varscan_snp
-  - id: vlda_varscan_indel
+  - id: _v_l_d_a__filter_germline
     in:
       - id: VCF
-        source: bcftools_reheader_3/output
+        source: bcftools_reheader_varscan_indel/output
       - id: variant_caller
         default: varscan
     out:
@@ -294,7 +294,7 @@ steps:
   - id: vlda_pindel
     in:
       - id: VCF
-        source: bcftools_reheader_2/output
+        source: bcftools_reheader_pindel/output
       - id: variant_caller
         default: pindel
     out:
@@ -313,7 +313,7 @@ steps:
       - id: output_dat
     run: ../submodules/VEP_annotate/cwl/vep_annotate.TinJasmine.v99.cwl
     label: vep_annotate TinJasmine v99
-  - id: bcftools_reheader
+  - id: bcftools_reheader_varscan_snp
     in:
       - id: vcf
         source: bcftools_normalize_varscan_snp/output
@@ -322,8 +322,8 @@ steps:
     out:
       - id: output
     run: ./bcftools_reheader.cwl
-    label: bcftools_reheader
-  - id: bcftools_reheader_1
+    label: bcftools_reheader_varscan_snp
+  - id: bcftools_reheader_gatk_snp
     in:
       - id: vcf
         source: bcftools_normalize_gatk_snp/output
@@ -332,8 +332,8 @@ steps:
     out:
       - id: output
     run: ./bcftools_reheader.cwl
-    label: bcftools_reheader
-  - id: bcftools_reheader_2
+    label: bcftools_reheader_gatk_snp
+  - id: bcftools_reheader_pindel
     in:
       - id: vcf
         source: bcftools_normalize_pindel/output
@@ -342,8 +342,8 @@ steps:
     out:
       - id: output
     run: ./bcftools_reheader.cwl
-    label: bcftools_reheader
-  - id: bcftools_reheader_3
+    label: bcftools_reheader_pindel
+  - id: bcftools_reheader_varscan_indel
     in:
       - id: vcf
         source: bcftools_normalize_varscan_indel/output
@@ -352,8 +352,8 @@ steps:
     out:
       - id: output
     run: ./bcftools_reheader.cwl
-    label: bcftools_reheader
-  - id: bcftools_reheader_4
+    label: bcftools_reheader_varscan_indel
+  - id: bcftools_reheader_gatk_indel
     in:
       - id: vcf
         source: bcftools_normalize_gatk_indel/output
@@ -362,6 +362,6 @@ steps:
     out:
       - id: output
     run: ./bcftools_reheader.cwl
-    label: bcftools_reheader
+    label: bcftools_reheader_gatk_indel
 requirements:
   - class: SubworkflowFeatureRequirement
