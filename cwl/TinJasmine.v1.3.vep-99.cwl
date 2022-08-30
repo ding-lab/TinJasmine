@@ -1,8 +1,8 @@
 class: Workflow
 cwlVersion: v1.0
-id: tin_jasmine_v1_2
+id: tin_jasmine_v1_3
 doc: Updated version calling VLDA filter workflow
-label: TinJasmine 1.2 VEP 99
+label: TinJasmine 1.3 VEP 99
 inputs:
   - id: bam
     type: File
@@ -14,8 +14,6 @@ inputs:
     type: File
   - id: vep_cache_gz
     type: File?
-  - id: assembly
-    type: string?
   - id: Canonical_BED
     type: File
   - id: chrlist
@@ -25,6 +23,10 @@ inputs:
     type: File?
   - id: sample_barcode
     type: string?
+  - id: samples
+    type: string
+  - id: assembly
+    type: string
 outputs:
   - id: clean_VCF
     outputSource:
@@ -142,7 +144,7 @@ steps:
       - id: pindel
         source: vlda_pindel/output
       - id: varscan_indel
-        source: _v_l_d_a__filter_germline/output
+        source: vlda_varscan_indel/output
       - id: varscan_snv
         source: vlda_varscan_snp/output
       - id: ref_remap
@@ -252,7 +254,7 @@ steps:
   - id: vlda_gatk_snp
     in:
       - id: VCF
-        source: bcftools_normalize_gatk_snp/output
+        source: bcftools_reheader_1/output
       - id: variant_caller
         default: GATK
     out:
@@ -262,7 +264,7 @@ steps:
   - id: vlda_gatk_indel
     in:
       - id: VCF
-        source: bcftools_normalize_gatk_indel/output
+        source: bcftools_reheader_4/output
       - id: variant_caller
         default: GATK
     out:
@@ -272,17 +274,17 @@ steps:
   - id: vlda_varscan_snp
     in:
       - id: VCF
-        source: bcftools_normalize_varscan_snp/output
+        source: bcftools_reheader/output
       - id: variant_caller
         default: varscan
     out:
       - id: output
     run: ../submodules/VLD_FilterVCF/cwl/VLDA_Filter-germline.cwl
     label: VLDA_varscan_snp
-  - id: _v_l_d_a__filter_germline
+  - id: vlda_varscan_indel
     in:
       - id: VCF
-        source: bcftools_normalize_varscan_indel/output
+        source: bcftools_reheader_3/output
       - id: variant_caller
         default: varscan
     out:
@@ -292,7 +294,7 @@ steps:
   - id: vlda_pindel
     in:
       - id: VCF
-        source: bcftools_normalize_pindel/output
+        source: bcftools_reheader_2/output
       - id: variant_caller
         default: pindel
     out:
@@ -311,5 +313,55 @@ steps:
       - id: output_dat
     run: ../submodules/VEP_annotate/cwl/vep_annotate.TinJasmine.v99.cwl
     label: vep_annotate TinJasmine v99
+  - id: bcftools_reheader
+    in:
+      - id: vcf
+        source: bcftools_normalize_varscan_snp/output
+      - id: samples
+        source: samples
+    out:
+      - id: output
+    run: ./bcftools_reheader.cwl
+    label: bcftools_reheader
+  - id: bcftools_reheader_1
+    in:
+      - id: vcf
+        source: bcftools_normalize_gatk_snp/output
+      - id: samples
+        source: samples
+    out:
+      - id: output
+    run: ./bcftools_reheader.cwl
+    label: bcftools_reheader
+  - id: bcftools_reheader_2
+    in:
+      - id: vcf
+        source: bcftools_normalize_pindel/output
+      - id: samples
+        source: samples
+    out:
+      - id: output
+    run: ./bcftools_reheader.cwl
+    label: bcftools_reheader
+  - id: bcftools_reheader_3
+    in:
+      - id: vcf
+        source: bcftools_normalize_varscan_indel/output
+      - id: samples
+        source: samples
+    out:
+      - id: output
+    run: ./bcftools_reheader.cwl
+    label: bcftools_reheader
+  - id: bcftools_reheader_4
+    in:
+      - id: vcf
+        source: bcftools_normalize_gatk_indel/output
+      - id: samples
+        source: samples
+    out:
+      - id: output
+    run: ./bcftools_reheader.cwl
+    label: bcftools_reheader
 requirements:
   - class: SubworkflowFeatureRequirement
