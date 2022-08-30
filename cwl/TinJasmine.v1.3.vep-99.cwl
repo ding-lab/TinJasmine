@@ -21,11 +21,7 @@ inputs:
     doc: List of chromsome regions common to all callers
   - id: centromere
     type: File?
-  - id: sample_barcode
-    type: string?
   - id: samples
-    type: string
-  - id: assembly
     type: string
 outputs:
   - id: clean_VCF
@@ -194,11 +190,11 @@ steps:
       - id: ref-fasta
         source: reference
       - id: assembly
-        source: assembly
+        default: GRCh38
       - id: input-vcf
         source: canonical_filter/output
       - id: normal_barcode
-        source: sample_barcode
+        source: samples
     out:
       - id: output
     run: ../submodules/vcf2maf-CWL/cwl/vcf2maf.cwl
