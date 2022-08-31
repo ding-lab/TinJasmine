@@ -1,4 +1,4 @@
-sample_barcode: a_string  # type "string" (optional)
+samples: a_string  # type "string"
 centromere:  # type "File" (optional)
     class: File
     path: a/file/path

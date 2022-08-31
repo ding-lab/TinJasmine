@@ -1,4 +1,5 @@
-sample_barcode: CPT0000580002
+# Based on TinJasmine v1.3 template
+samples: CPT0000580002
 centromere:  # type "File" (optional)
     class: File
     path: ../../../params/centromere/ucsc-centromere.GRCh38.bed
