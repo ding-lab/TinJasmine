@@ -140,7 +140,7 @@ steps:
       - id: pindel
         source: vlda_pindel/output
       - id: varscan_indel
-        source: _v_l_d_a__filter_germline/output
+        source: vlda_varscan_indel/output
       - id: varscan_snv
         source: vlda_varscan_snp/output
       - id: ref_remap
@@ -277,7 +277,7 @@ steps:
       - id: output
     run: ../submodules/VLD_FilterVCF/cwl/VLDA_Filter-germline.cwl
     label: VLDA_varscan_snp
-  - id: _v_l_d_a__filter_germline
+  - id: vlda_varscan_indel
     in:
       - id: VCF
         source: bcftools_reheader_varscan_indel/output

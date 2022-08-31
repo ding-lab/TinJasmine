@@ -1,8 +1,8 @@
 class: Workflow
 cwlVersion: v1.0
-id: tin_jasmine_v1.2
+id: tin_jasmine_v1_3
 doc: Updated version calling VLDA filter workflow
-label: TinJasmine 1.2 VEP 102
+label: TinJasmine 1.3 VEP 102
 inputs:
   - id: bam
     type: File
@@ -14,8 +14,6 @@ inputs:
     type: File
   - id: vep_cache_gz
     type: File?
-  - id: assembly
-    type: string?
   - id: Canonical_BED
     type: File
   - id: chrlist
@@ -23,8 +21,8 @@ inputs:
     doc: List of chromsome regions common to all callers
   - id: centromere
     type: File?
-  - id: sample_barcode
-    type: string?
+  - id: samples
+    type: string
 outputs:
   - id: clean_VCF
     outputSource:
@@ -142,7 +140,7 @@ steps:
       - id: pindel
         source: vlda_pindel/output
       - id: varscan_indel
-        source: _v_l_d_a__filter_germline/output
+        source: vlda_varscan_indel/output
       - id: varscan_snv
         source: vlda_varscan_snp/output
       - id: ref_remap
@@ -192,11 +190,11 @@ steps:
       - id: ref-fasta
         source: reference
       - id: assembly
-        source: assembly
+        default: GRCh38
       - id: input-vcf
         source: canonical_filter/output
       - id: normal_barcode
-        source: sample_barcode
+        source: samples
     out:
       - id: output
     run: ../submodules/vcf2maf-CWL/cwl/vcf2maf.cwl
@@ -252,7 +250,7 @@ steps:
   - id: vlda_gatk_snp
     in:
       - id: VCF
-        source: bcftools_normalize_gatk_snp/output
+        source: bcftools_reheader_gatk_snp/output
       - id: variant_caller
         default: GATK
     out:
@@ -262,7 +260,7 @@ steps:
   - id: vlda_gatk_indel
     in:
       - id: VCF
-        source: bcftools_normalize_gatk_indel/output
+        source: bcftools_reheader_gatk_indel/output
       - id: variant_caller
         default: GATK
     out:
@@ -272,17 +270,17 @@ steps:
   - id: vlda_varscan_snp
     in:
       - id: VCF
-        source: bcftools_normalize_varscan_snp/output
+        source: bcftools_reheader_varscan_snp/output
       - id: variant_caller
         default: varscan
     out:
       - id: output
     run: ../submodules/VLD_FilterVCF/cwl/VLDA_Filter-germline.cwl
     label: VLDA_varscan_snp
-  - id: _v_l_d_a__filter_germline
+  - id: vlda_varscan_indel
     in:
       - id: VCF
-        source: bcftools_normalize_varscan_indel/output
+        source: bcftools_reheader_varscan_indel/output
       - id: variant_caller
         default: varscan
     out:
@@ -292,7 +290,7 @@ steps:
   - id: vlda_pindel
     in:
       - id: VCF
-        source: bcftools_normalize_pindel/output
+        source: bcftools_reheader_pindel/output
       - id: variant_caller
         default: pindel
     out:
@@ -311,5 +309,55 @@ steps:
       - id: output_dat
     run: ../submodules/VEP_annotate/cwl/vep_annotate.TinJasmine.v102.cwl
     label: vep_annotate TinJasmine v102
+  - id: bcftools_reheader_varscan_snp
+    in:
+      - id: vcf
+        source: bcftools_normalize_varscan_snp/output
+      - id: samples
+        source: samples
+    out:
+      - id: output
+    run: ./bcftools_reheader.cwl
+    label: bcftools_reheader_varscan_snp
+  - id: bcftools_reheader_gatk_snp
+    in:
+      - id: vcf
+        source: bcftools_normalize_gatk_snp/output
+      - id: samples
+        source: samples
+    out:
+      - id: output
+    run: ./bcftools_reheader.cwl
+    label: bcftools_reheader_gatk_snp
+  - id: bcftools_reheader_pindel
+    in:
+      - id: vcf
+        source: bcftools_normalize_pindel/output
+      - id: samples
+        source: samples
+    out:
+      - id: output
+    run: ./bcftools_reheader.cwl
+    label: bcftools_reheader_pindel
+  - id: bcftools_reheader_varscan_indel
+    in:
+      - id: vcf
+        source: bcftools_normalize_varscan_indel/output
+      - id: samples
+        source: samples
+    out:
+      - id: output
+    run: ./bcftools_reheader.cwl
+    label: bcftools_reheader_varscan_indel
+  - id: bcftools_reheader_gatk_indel
+    in:
+      - id: vcf
+        source: bcftools_normalize_gatk_indel/output
+      - id: samples
+        source: samples
+    out:
+      - id: output
+    run: ./bcftools_reheader.cwl
+    label: bcftools_reheader_gatk_indel
 requirements:
   - class: SubworkflowFeatureRequirement
