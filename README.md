@@ -11,6 +11,8 @@ information about managing pipeline runs using Cromwell on LSF environments
 
 ## Versions
 
+* v1.4 - Removing spanning deletions from GATK calls and normalizing post-merge
+* v1.3 - Incorporates bcftools reheader to make all VCF headers consistent
 * v1.2 
   * VLD filter which has parameters passed via CWL 
   * Updated VEP annotation with options for v99, v100, and v102
