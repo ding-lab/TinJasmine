@@ -205,7 +205,7 @@ steps:
         source: pindel_filter/indel_vcf
     out:
       - id: output
-    run: ../submodules/bcftools_utils/cwl/bcftools_normalize.cwl
+    run: ../submodules/bcftools/cwl/bcftools_normalize.cwl
     label: bcftools_normalize_pindel
   - id: bcftools_normalize_varscan_indel
     in:
@@ -213,7 +213,7 @@ steps:
         source: varscan_vcf_remap_indel/remapped_VCF
     out:
       - id: output
-    run: ../submodules/bcftools_utils/cwl/bcftools_normalize.cwl
+    run: ../submodules/bcftools/cwl/bcftools_normalize.cwl
     label: bcftools_normalize_varscan_indel
   - id: bcftools_normalize_varscan_snp
     in:
@@ -221,7 +221,7 @@ steps:
         source: varscan_vcf_remap_snp/remapped_VCF
     out:
       - id: output
-    run: ../submodules/bcftools_utils/cwl/bcftools_normalize.cwl
+    run: ../submodules/bcftools/cwl/bcftools_normalize.cwl
     label: bcftools_normalize_varscan_snp
   - id: bcftools_normalize_gatk_snp
     in:
@@ -229,7 +229,7 @@ steps:
         source: gatk_germline_caller/snp_vcf
     out:
       - id: output
-    run: ../submodules/bcftools_utils/cwl/bcftools_normalize.cwl
+    run: ../submodules/bcftools/cwl/bcftools_normalize.cwl
     label: bcftools_normalize_gatk_snp
   - id: bcftools_normalize_gatk_indel
     in:
@@ -237,7 +237,7 @@ steps:
         source: gatk_germline_caller/indel_vcf
     out:
       - id: output
-    run: ../submodules/bcftools_utils/cwl/bcftools_normalize.cwl
+    run: ../submodules/bcftools/cwl/bcftools_normalize.cwl
     label: bcftools_normalize_gatk_indel
   - id: stage_bam
     in:
@@ -317,7 +317,7 @@ steps:
         source: samples
     out:
       - id: output
-    run: ../submodules/bcftools_utils/cwl/bcftools_reheader.cwl
+    run: ../submodules/bcftools/cwl/bcftools_reheader.cwl
     label: bcftools_reheader_varscan_snp
   - id: bcftools_reheader_gatk_snp
     in:
@@ -327,7 +327,7 @@ steps:
         source: samples
     out:
       - id: output
-    run: ../submodules/bcftools_utils/cwl/bcftools_reheader.cwl
+    run: ../submodules/bcftools/cwl/bcftools_reheader.cwl
     label: bcftools_reheader_gatk_snp
   - id: bcftools_reheader_pindel
     in:
@@ -337,7 +337,7 @@ steps:
         source: samples
     out:
       - id: output
-    run: ../submodules/bcftools_utils/cwl/bcftools_reheader.cwl
+    run: ../submodules/bcftools/cwl/bcftools_reheader.cwl
     label: bcftools_reheader_pindel
   - id: bcftools_reheader_varscan_indel
     in:
@@ -347,7 +347,7 @@ steps:
         source: samples
     out:
       - id: output
-    run: ../submodules/bcftools_utils/cwl/bcftools_reheader.cwl
+    run: ../submodules/bcftools/cwl/bcftools_reheader.cwl
     label: bcftools_reheader_varscan_indel
   - id: bcftools_reheader_gatk_indel
     in:
@@ -357,7 +357,7 @@ steps:
         source: samples
     out:
       - id: output
-    run: ../submodules/bcftools_utils/cwl/bcftools_reheader.cwl
+    run: ../submodules/bcftools/cwl/bcftools_reheader.cwl
     label: bcftools_reheader_gatk_indel
   - id: bcftools_remove_spanning_deletions_gatk_indel
     in:
@@ -365,7 +365,7 @@ steps:
         source: bcftools_reheader_gatk_indel/output
     out:
       - id: output
-    run: ../submodules/bcftools_utils/cwl/bcftools_remove_spanning_deletions.cwl
+    run: ../submodules/bcftools/cwl/bcftools_remove_spanning_deletions.cwl
     label: bcftools_remove_spanning_deletions_gatk_indel
   - id: bcftools_remove_spanning_deletions_gatk_snp
     in:
@@ -373,15 +373,23 @@ steps:
         source: bcftools_reheader_gatk_snp/output
     out:
       - id: output
-    run: ../submodules/bcftools_utils/cwl/bcftools_remove_spanning_deletions.cwl
+    run: ../submodules/bcftools/cwl/bcftools_remove_spanning_deletions.cwl
     label: bcftools_remove_spanning_deletions_gatk_snp
   - id: bcftools_normalize
+    in:
+      - id: vcf
+        source: fix_mleac/output
+    out:
+      - id: output
+    run: ../submodules/bcftools/cwl/bcftools_normalize.cwl
+    label: bcftools_normalize
+  - id: fix_mleac
     in:
       - id: vcf
         source: merge_vcf/merged_vcf
     out:
       - id: output
-    run: ../submodules/bcftools_utils/cwl/bcftools_normalize.cwl
-    label: bcftools_normalize
+    run: ../submodules/bcftools/cwl/fix_MLEAC.cwl
+    label: fix_mleac
 requirements:
   - class: SubworkflowFeatureRequirement
