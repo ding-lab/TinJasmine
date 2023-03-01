@@ -2,7 +2,7 @@ source /opt/ibm/lsfsuite/lsf/conf/lsf.conf
 
 PWD=$(pwd)
 CWL_ROOT_H=$PWD/../..
-CWL="$CWL_ROOT_H/cwl/TinJasmine.v1.3.vep-100.cwl"
+CWL="$CWL_ROOT_H/cwl/TinJasmine.v1.4.vep-100.cwl"
 
 CONFIG="cromwell-config/cromwell-config-db.compute1-filedb.dat"
 YAML="yaml/TinJasmine.C3L-00017.yaml"
