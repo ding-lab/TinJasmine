@@ -1,0 +1,28 @@
+pindel_vcf:  # type "File"
+    class: File
+    path: a/file/path
+varscan_snp_vcf:  # type "File"
+    class: File
+    path: a/file/path
+varscan_indel_vcf:  # type "File"
+    class: File
+    path: a/file/path
+gatk_snp_vcf:  # type "File"
+    class: File
+    path: a/file/path
+gatk_indel_vcf:  # type "File"
+    class: File
+    path: a/file/path
+samples: a_string  # type "string"
+Canonical_BED:  # type "File"
+    class: File
+    path: a/file/path
+vep_cache_gz:  # type "File" (optional)
+    class: File
+    path: a/file/path
+ROI_BED:  # type "File"
+    class: File
+    path: a/file/path
+reference:  # type "File"
+    class: File
+    path: a/file/path
