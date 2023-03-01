@@ -28,3 +28,6 @@
 [submodule "submodules/WUDocker"]
 	path = submodules/WUDocker
 	url = https://github.com/ding-lab/WUDocker.git
+[submodule "submodules/bcftools"]
+	path = submodules/bcftools
+	url = https://github.com/mwyczalkowski/bcftools.git
