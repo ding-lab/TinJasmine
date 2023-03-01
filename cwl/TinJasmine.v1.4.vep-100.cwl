@@ -152,7 +152,7 @@ steps:
   - id: filter_vcf
     in:
       - id: input_vcf
-        source: bcftools_normalize/output
+        source: bcftools_normalize_postmerge/output
     out:
       - id: merged_vcf
     run: ../submodules/MergeFilterVCF/cwl/FilterVCF_TinJasmine.cwl
@@ -203,6 +203,8 @@ steps:
     in:
       - id: vcf
         source: pindel_filter/indel_vcf
+      - id: reference
+        source: reference
     out:
       - id: output
     run: ../submodules/bcftools/cwl/bcftools_normalize.cwl
@@ -211,6 +213,8 @@ steps:
     in:
       - id: vcf
         source: varscan_vcf_remap_indel/remapped_VCF
+      - id: reference
+        source: reference
     out:
       - id: output
     run: ../submodules/bcftools/cwl/bcftools_normalize.cwl
@@ -219,6 +223,8 @@ steps:
     in:
       - id: vcf
         source: varscan_vcf_remap_snp/remapped_VCF
+      - id: reference
+        source: reference
     out:
       - id: output
     run: ../submodules/bcftools/cwl/bcftools_normalize.cwl
@@ -227,6 +233,8 @@ steps:
     in:
       - id: vcf
         source: gatk_germline_caller/snp_vcf
+      - id: reference
+        source: reference
     out:
       - id: output
     run: ../submodules/bcftools/cwl/bcftools_normalize.cwl
@@ -235,6 +243,8 @@ steps:
     in:
       - id: vcf
         source: gatk_germline_caller/indel_vcf
+      - id: reference
+        source: reference
     out:
       - id: output
     run: ../submodules/bcftools/cwl/bcftools_normalize.cwl
@@ -375,14 +385,16 @@ steps:
       - id: output
     run: ../submodules/bcftools/cwl/bcftools_remove_spanning_deletions.cwl
     label: bcftools_remove_spanning_deletions_gatk_snp
-  - id: bcftools_normalize
+  - id: bcftools_normalize_postmerge
     in:
       - id: vcf
         source: fix_mleac/output
+      - id: reference
+        source: reference
     out:
       - id: output
     run: ../submodules/bcftools/cwl/bcftools_normalize.cwl
-    label: bcftools_normalize
+    label: bcftools_normalize_postmerge
   - id: fix_mleac
     in:
       - id: vcf
