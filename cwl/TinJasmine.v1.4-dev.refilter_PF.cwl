@@ -1,12 +1,14 @@
 class: Workflow
 cwlVersion: v1.0
-id: tin_jasmine_v1_4_vep100
+id: tin_jasmine_v1_4dev_refilter__p_f
 doc: >-
   TinJasmine germline variant caller with VEP v100 annotation.  Refilter variant
-  starts before first bcftools step
-label: TinJasmine 1.4 VEP 100
+  starts before first bcftools step.  PindelFilter also here.
+label: TinJasmine 1.4dev refilter_PF
 inputs:
   - id: reference
+    type: File
+  - id: pindel_config_template
     type: File
   - id: ROI_BED
     type: File
@@ -16,15 +18,15 @@ inputs:
     type: File
   - id: samples
     type: string
+  - id: pindel_sifted
+    type: File
   - id: gatk_indel_vcf
     type: File
   - id: gatk_snp_vcf
     type: File
-  - id: varscan_indel_vcf
-    type: File
   - id: varscan_snp_vcf
     type: File
-  - id: pindel_vcf
+  - id: varscan_indel_vcf
     type: File
 outputs:
   - id: clean_VCF
@@ -40,6 +42,20 @@ outputs:
       vep_annotate_tin_jasmine_v100/output_dat
     type: File
 steps:
+  - id: pindel_filter
+    in:
+      - id: pindel_sifted
+        source: pindel_sifted
+      - id: reference
+        source: reference
+      - id: pindel_config_template
+        source: pindel_config_template
+      - id: compress_output
+        default: true
+    out:
+      - id: indel_vcf
+    run: ../submodules/Pindel_GermlineCaller/cwl/pindel_filter.cwl
+    label: Pindel_Filter
   - id: merge_vcf
     in:
       - id: reference
@@ -113,7 +129,7 @@ steps:
   - id: bcftools_normalize_pindel
     in:
       - id: vcf
-        source: pindel_vcf
+        source: pindel_filter/indel_vcf
       - id: reference
         source: reference
     out:
