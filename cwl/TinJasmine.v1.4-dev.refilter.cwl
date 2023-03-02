@@ -29,15 +29,15 @@ inputs:
 outputs:
   - id: clean_VCF
     outputSource:
-      - canonical_filter/output
+      canonical_filter/output
     type: File
   - id: clean_MAF
     outputSource:
-      - vcf2maf/output
+      vcf2maf/output
     type: File
   - id: all_call_vcf
     outputSource:
-      - vep_annotate_tin_jasmine_v100/output_dat
+      vep_annotate_tin_jasmine_v100/output_dat
     type: File
 steps:
   - id: merge_vcf
@@ -60,7 +60,7 @@ steps:
       - id: merged_vcf
     run: ../submodules/MergeFilterVCF/cwl/MergeVCF_TinJasmine.cwl
     label: Merge_VCF
-  - id: filter_vcf
+  - id: merge_filter_vcf
     in:
       - id: input_vcf
         source: bcftools_normalize_postmerge/output
@@ -71,7 +71,7 @@ steps:
   - id: roi_filter
     in:
       - id: VCF_A
-        source: filter_vcf/merged_vcf
+        source: merge_filter_vcf/merged_vcf
       - id: BED
         source: ROI_BED
       - id: retain_all
@@ -116,6 +116,8 @@ steps:
         source: pindel_vcf
       - id: reference
         source: reference
+      - id: output_type
+        default: z
     out:
       - id: output
     run: ../submodules/bcftools/cwl/bcftools_normalize.cwl
@@ -126,6 +128,8 @@ steps:
         source: varscan_indel_vcf
       - id: reference
         source: reference
+      - id: output_type
+        default: z
     out:
       - id: output
     run: ../submodules/bcftools/cwl/bcftools_normalize.cwl
@@ -136,6 +140,8 @@ steps:
         source: varscan_snp_vcf
       - id: reference
         source: reference
+      - id: output_type
+        default: z
     out:
       - id: output
     run: ../submodules/bcftools/cwl/bcftools_normalize.cwl
@@ -146,6 +152,8 @@ steps:
         source: gatk_snp_vcf
       - id: reference
         source: reference
+      - id: output_type
+        default: z
     out:
       - id: output
     run: ../submodules/bcftools/cwl/bcftools_normalize.cwl
@@ -156,6 +164,8 @@ steps:
         source: gatk_indel_vcf
       - id: reference
         source: reference
+      - id: output_type
+        default: z
     out:
       - id: output
     run: ../submodules/bcftools/cwl/bcftools_normalize.cwl
@@ -294,6 +304,8 @@ steps:
         source: fix_mleac/output
       - id: reference
         source: reference
+      - id: output_type
+        default: v
     out:
       - id: output
     run: ../submodules/bcftools/cwl/bcftools_normalize.cwl

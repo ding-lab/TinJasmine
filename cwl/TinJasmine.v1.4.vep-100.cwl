@@ -149,7 +149,7 @@ steps:
       - id: merged_vcf
     run: ../submodules/MergeFilterVCF/cwl/MergeVCF_TinJasmine.cwl
     label: Merge_VCF
-  - id: filter_vcf
+  - id: merge_filter_vcf
     in:
       - id: input_vcf
         source: bcftools_normalize_postmerge/output
