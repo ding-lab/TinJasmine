@@ -29,15 +29,15 @@ inputs:
 outputs:
   - id: clean_VCF
     outputSource:
-      - canonical_filter/output
+      canonical_filter/output
     type: File
   - id: clean_MAF
     outputSource:
-      - vcf2maf/output
+      vcf2maf/output
     type: File
   - id: all_call_vcf
     outputSource:
-      - vep_annotate_tin_jasmine_v100/output_dat
+      vep_annotate_tin_jasmine_v100/output_dat
     type: File
 steps:
   - id: merge_vcf
