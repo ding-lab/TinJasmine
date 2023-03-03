@@ -4,7 +4,7 @@ TinJasmine is a CWL implementation of a germline variant calling pipeline.  It
 is modeled on the Huang et al. [Pathogenic Germline Variants in 10,389 Adult
 Cancers](https://www.cell.com/cell/fulltext/S0092-8674(18)30363-5) 
 
-![TinJasmine Workflow](doc/TinJasmine.wf1.6.png?raw=true "TinJasmine Workflow")
+![TinJasmine Workflow](doc/TinJasmine.wf1.7.png?raw=true "TinJasmine Workflow")
 
 See [CromwellRunner](https://github.com/ding-lab/CromwellRunner.git) for
 information about managing pipeline runs using Cromwell on LSF environments
