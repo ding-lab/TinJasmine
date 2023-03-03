@@ -11,9 +11,12 @@ information about managing pipeline runs using Cromwell on LSF environments
 
 ## Versions
 
-* v1.4 - Removing spanning deletions from GATK calls and normalizing post-merge
+* v1.4 - Filtering updates
+  * Removing spanning deletions (ALT=`*`) from GATK calls 
+  * Add post-merge normalization step to split multiallelic variants
+    which were re-combined in merge step
   * Filtering for MLEAF/MLEAC issue
-  * Bcftools moved to separate submodule
+  * Bcftools moved to separate submodule and updated to v1.10.2
 * v1.3 - Incorporates bcftools reheader to make all VCF headers consistent
 * v1.2 
   * VLD filter which has parameters passed via CWL 
@@ -35,6 +38,8 @@ are developed as independent projects:
 * [`HotspotFilter`](https://github.com/ding-lab/HotspotFilter.git)
 * [`VCF2MAF`](https://github.com/ding-lab/vcf2maf-CWL.git)
 * [`VLD_Filter`](https://github.com/ding-lab/VLD_FilterVCF.git)
+* [`bcftools`](https://github.com/mwyczalkowski/bcftools.git) 
+  * Wrapper around bcftools 1.10.2 with related filter scripts
 
 
 ### Installation
@@ -48,6 +53,16 @@ git clone --recurse-submodules https://github.com/ding-lab/TinJasmine.git
 Copies are made of BAM files in the preliminary "staging" step.  This is done for performance reasons on
 Cromwell so that individual copies of the BAM are not generated for each caller.  Tool for staging of files
 is "borrowed" from [BICSEQ2.CWL](https://github.com/mwyczalkowski/BICSEQ2.CWL.git).
+
+## Output 
+Three output files are produced:
+* `all_call_vcf`: Contains all pre-merge PASS variants.  Any filters applied after merge step 
+  will add a value to FILTER field but variant will be retained
+    * Filename: `output_vep.vcf`
+* `clean_VC`: Contains only those variants which have FILTER value PASS after all post-merge filters applied
+    * Filename: `HotspotFiltered.vcf`
+* `clean_MAF`: MAF version of all variants found in clean VCF
+    * Filename: `result.maf`
 
 # Contact info
 

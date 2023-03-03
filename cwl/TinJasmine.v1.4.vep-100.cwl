@@ -160,7 +160,7 @@ steps:
   - id: roi_filter
     in:
       - id: VCF_A
-        source: filter_vcf/merged_vcf
+        source: merge_filter_vcf/merged_vcf
       - id: BED
         source: ROI_BED
       - id: retain_all
@@ -205,6 +205,8 @@ steps:
         source: pindel_filter/indel_vcf
       - id: reference
         source: reference
+      - id: output_type
+        default: z
     out:
       - id: output
     run: ../submodules/bcftools/cwl/bcftools_normalize.cwl
@@ -215,6 +217,8 @@ steps:
         source: varscan_vcf_remap_indel/remapped_VCF
       - id: reference
         source: reference
+      - id: output_type
+        default: z
     out:
       - id: output
     run: ../submodules/bcftools/cwl/bcftools_normalize.cwl
@@ -225,6 +229,8 @@ steps:
         source: varscan_vcf_remap_snp/remapped_VCF
       - id: reference
         source: reference
+      - id: output_type
+        default: z
     out:
       - id: output
     run: ../submodules/bcftools/cwl/bcftools_normalize.cwl
@@ -235,6 +241,8 @@ steps:
         source: gatk_germline_caller/snp_vcf
       - id: reference
         source: reference
+      - id: output_type
+        default: z
     out:
       - id: output
     run: ../submodules/bcftools/cwl/bcftools_normalize.cwl
@@ -245,6 +253,8 @@ steps:
         source: gatk_germline_caller/indel_vcf
       - id: reference
         source: reference
+      - id: output_type
+        default: z
     out:
       - id: output
     run: ../submodules/bcftools/cwl/bcftools_normalize.cwl
@@ -391,6 +401,8 @@ steps:
         source: fix_mleac/output
       - id: reference
         source: reference
+      - id: output_type
+        default: v
     out:
       - id: output
     run: ../submodules/bcftools/cwl/bcftools_normalize.cwl

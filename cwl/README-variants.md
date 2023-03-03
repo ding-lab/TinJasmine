@@ -1,5 +1,3 @@
-TinJasmine.v1.4dev.refilter_PF.cwl
-- variant of development version of TinJasmine.v1.4.vep-100.cwl which starts at first bcftools step
-  for all tools except Pindel, where it startes at Pindel Filter step
 TinJasmine.v1.4dev.refilter.cwl
-- similar to TinJasmine.v1.4dev.refilter_PF.cwl, except excludes Pindel Filter
+- variant of development version of TinJasmine.v1.4.vep-100.cwl which starts at first bcftools step
+- tested here: /cache1/fs1/home1/Active/home/m.wyczalkowski/Projects/TinJasmine/TinJasmine-normalize/cwl_call_refilter
