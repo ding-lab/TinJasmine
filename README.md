@@ -21,7 +21,7 @@ information about managing pipeline runs using Cromwell on LSF environments
 * v1.2 
   * VLD filter which has parameters passed via CWL 
   * Updated VEP annotation with options for v99, v100, and v102
-v1.1 
+* v1.1 
   * Initial version of TinJasmine compatible with CromwellRunner
 
 ### Subprojects
@@ -48,11 +48,6 @@ All of the subprojects can be installed together with TinJasmine as,
 ```
 git clone --recurse-submodules https://github.com/ding-lab/TinJasmine.git
 ```
-
-### Staging of files
-Copies are made of BAM files in the preliminary "staging" step.  This is done for performance reasons on
-Cromwell so that individual copies of the BAM are not generated for each caller.  Tool for staging of files
-is "borrowed" from [BICSEQ2.CWL](https://github.com/mwyczalkowski/BICSEQ2.CWL.git).
 
 ## Output 
 Three output files are produced:
