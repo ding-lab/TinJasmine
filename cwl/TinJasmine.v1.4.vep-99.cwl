@@ -1,8 +1,8 @@
 class: Workflow
 cwlVersion: v1.0
-id: tin_jasmine_v1_3
-doc: Updated version calling VLDA filter workflow
-label: TinJasmine 1.3 VEP 100
+id: tin_jasmine_v1_4_vep99
+doc: TinJasmine germline variant caller with VEP v99 annotation
+label: TinJasmine 1.4 VEP 99
 inputs:
   - id: bam
     type: File
@@ -34,7 +34,7 @@ outputs:
     type: File
   - id: all_call_vcf
     outputSource:
-      vep_annotate_tin_jasmine_v100/output_dat
+      vep_annotate_tin_jasmine_v99/output_dat
     type: File
 steps:
   - id: gatk_germline_caller
@@ -149,10 +149,10 @@ steps:
       - id: merged_vcf
     run: ../submodules/MergeFilterVCF/cwl/MergeVCF_TinJasmine.cwl
     label: Merge_VCF
-  - id: filter_vcf
+  - id: merge_filter_vcf
     in:
       - id: input_vcf
-        source: merge_vcf/merged_vcf
+        source: bcftools_normalize_postmerge/output
     out:
       - id: merged_vcf
     run: ../submodules/MergeFilterVCF/cwl/FilterVCF_TinJasmine.cwl
@@ -160,7 +160,7 @@ steps:
   - id: roi_filter
     in:
       - id: VCF_A
-        source: filter_vcf/merged_vcf
+        source: merge_filter_vcf/merged_vcf
       - id: BED
         source: ROI_BED
       - id: retain_all
@@ -174,7 +174,7 @@ steps:
   - id: canonical_filter
     in:
       - id: VCF_A
-        source: vep_annotate_tin_jasmine_v100/output_dat
+        source: vep_annotate_tin_jasmine_v99/output_dat
       - id: BED
         source: Canonical_BED
       - id: keep_only_pass
@@ -203,41 +203,61 @@ steps:
     in:
       - id: vcf
         source: pindel_filter/indel_vcf
+      - id: reference
+        source: reference
+      - id: output_type
+        default: z
     out:
       - id: output
-    run: ./bcftools_normalize.cwl
+    run: ../submodules/bcftools/cwl/bcftools_normalize.cwl
     label: bcftools_normalize_pindel
   - id: bcftools_normalize_varscan_indel
     in:
       - id: vcf
         source: varscan_vcf_remap_indel/remapped_VCF
+      - id: reference
+        source: reference
+      - id: output_type
+        default: z
     out:
       - id: output
-    run: ./bcftools_normalize.cwl
+    run: ../submodules/bcftools/cwl/bcftools_normalize.cwl
     label: bcftools_normalize_varscan_indel
   - id: bcftools_normalize_varscan_snp
     in:
       - id: vcf
         source: varscan_vcf_remap_snp/remapped_VCF
+      - id: reference
+        source: reference
+      - id: output_type
+        default: z
     out:
       - id: output
-    run: ./bcftools_normalize.cwl
+    run: ../submodules/bcftools/cwl/bcftools_normalize.cwl
     label: bcftools_normalize_varscan_snp
   - id: bcftools_normalize_gatk_snp
     in:
       - id: vcf
         source: gatk_germline_caller/snp_vcf
+      - id: reference
+        source: reference
+      - id: output_type
+        default: z
     out:
       - id: output
-    run: ./bcftools_normalize.cwl
+    run: ../submodules/bcftools/cwl/bcftools_normalize.cwl
     label: bcftools_normalize_gatk_snp
   - id: bcftools_normalize_gatk_indel
     in:
       - id: vcf
         source: gatk_germline_caller/indel_vcf
+      - id: reference
+        source: reference
+      - id: output_type
+        default: z
     out:
       - id: output
-    run: ./bcftools_normalize.cwl
+    run: ../submodules/bcftools/cwl/bcftools_normalize.cwl
     label: bcftools_normalize_gatk_indel
   - id: stage_bam
     in:
@@ -250,7 +270,7 @@ steps:
   - id: vlda_gatk_snp
     in:
       - id: VCF
-        source: bcftools_reheader_gatk_snp/output
+        source: bcftools_remove_spanning_deletions_gatk_snp/output
       - id: variant_caller
         default: GATK
     out:
@@ -260,7 +280,7 @@ steps:
   - id: vlda_gatk_indel
     in:
       - id: VCF
-        source: bcftools_reheader_gatk_indel/output
+        source: bcftools_remove_spanning_deletions_gatk_indel/output
       - id: variant_caller
         default: GATK
     out:
@@ -297,7 +317,7 @@ steps:
       - id: output
     run: ../submodules/VLD_FilterVCF/cwl/VLDA_Filter-germline.cwl
     label: VLDA_pindel
-  - id: vep_annotate_tin_jasmine_v100
+  - id: vep_annotate_tin_jasmine_v99
     in:
       - id: input_vcf
         source: roi_filter/output
@@ -307,8 +327,8 @@ steps:
         source: vep_cache_gz
     out:
       - id: output_dat
-    run: ../submodules/VEP_annotate/cwl/vep_annotate.TinJasmine.v100.cwl
-    label: vep_annotate TinJasmine v100
+    run: ../submodules/VEP_annotate/cwl/vep_annotate.TinJasmine.v99.cwl
+    label: vep_annotate TinJasmine v999
   - id: bcftools_reheader_varscan_snp
     in:
       - id: vcf
@@ -317,7 +337,7 @@ steps:
         source: samples
     out:
       - id: output
-    run: ./bcftools_reheader.cwl
+    run: ../submodules/bcftools/cwl/bcftools_reheader.cwl
     label: bcftools_reheader_varscan_snp
   - id: bcftools_reheader_gatk_snp
     in:
@@ -327,7 +347,7 @@ steps:
         source: samples
     out:
       - id: output
-    run: ./bcftools_reheader.cwl
+    run: ../submodules/bcftools/cwl/bcftools_reheader.cwl
     label: bcftools_reheader_gatk_snp
   - id: bcftools_reheader_pindel
     in:
@@ -337,7 +357,7 @@ steps:
         source: samples
     out:
       - id: output
-    run: ./bcftools_reheader.cwl
+    run: ../submodules/bcftools/cwl/bcftools_reheader.cwl
     label: bcftools_reheader_pindel
   - id: bcftools_reheader_varscan_indel
     in:
@@ -347,7 +367,7 @@ steps:
         source: samples
     out:
       - id: output
-    run: ./bcftools_reheader.cwl
+    run: ../submodules/bcftools/cwl/bcftools_reheader.cwl
     label: bcftools_reheader_varscan_indel
   - id: bcftools_reheader_gatk_indel
     in:
@@ -357,7 +377,43 @@ steps:
         source: samples
     out:
       - id: output
-    run: ./bcftools_reheader.cwl
+    run: ../submodules/bcftools/cwl/bcftools_reheader.cwl
     label: bcftools_reheader_gatk_indel
+  - id: bcftools_remove_spanning_deletions_gatk_indel
+    in:
+      - id: vcf
+        source: bcftools_reheader_gatk_indel/output
+    out:
+      - id: output
+    run: ../submodules/bcftools/cwl/bcftools_remove_spanning_deletions.cwl
+    label: bcftools_remove_spanning_deletions_gatk_indel
+  - id: bcftools_remove_spanning_deletions_gatk_snp
+    in:
+      - id: vcf
+        source: bcftools_reheader_gatk_snp/output
+    out:
+      - id: output
+    run: ../submodules/bcftools/cwl/bcftools_remove_spanning_deletions.cwl
+    label: bcftools_remove_spanning_deletions_gatk_snp
+  - id: bcftools_normalize_postmerge
+    in:
+      - id: vcf
+        source: fix_mleac/output
+      - id: reference
+        source: reference
+      - id: output_type
+        default: v
+    out:
+      - id: output
+    run: ../submodules/bcftools/cwl/bcftools_normalize.cwl
+    label: bcftools_normalize_postmerge
+  - id: fix_mleac
+    in:
+      - id: vcf
+        source: merge_vcf/merged_vcf
+    out:
+      - id: output
+    run: ../submodules/bcftools/cwl/fix_MLEAC.cwl
+    label: fix_mleac
 requirements:
   - class: SubworkflowFeatureRequirement
