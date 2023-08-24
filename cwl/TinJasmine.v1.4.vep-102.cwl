@@ -65,7 +65,7 @@ steps:
       - id: chrlist
         source: chrlist
       - id: njobs
-        default: 6
+        default: 4
       - id: confirm_success
         default: true
       - id: finalize
